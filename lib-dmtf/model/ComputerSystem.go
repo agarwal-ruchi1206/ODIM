@@ -179,12 +179,21 @@ const (
 	IndicatorLEDOff      IndicatorLED = "Off"
 )
 
+// AddResourceBlock redfish structure
+// This action adds a resource block to a system
+// This action shall add a resource block to a system
 type AddResourceBlock struct {
 	Target string `json:"Target,omitempty"`
 	Title  string `json:"title"`
 }
 
 // ComputerSystem redfish structure
+// The ComputerSystem schema represents a computer or system instance and the software-visible resources,
+// or items within the data plane, such as memory, CPU, and other devices that it can access.
+//
+//	Details of those resources or subsystems are also linked through this resource
+
+// Reference :ComputerSystem.v1_20_0.json
 type ComputerSystem struct {
 	Ocontext                        string                 `json:"@odata.context,omitempty"`
 	Oid                             string                 `json:"@odata.id"`
@@ -266,14 +275,30 @@ type ComputerSystemActions struct {
 	Oem                 *OemActions          `json:"Oem,omitempty"`
 }
 
+// RemoveResourceBlock redfish structure
+// This action removes a resource block from a system
+// This action shall remove a resource block from a system
 type RemoveResourceBlock struct {
 	Target string `json:"Target,omitempty"`
 	Title  string `json:"Title,omitempty"`
 }
+
+// Reset redfish Structure
+// This action resets the system.
+// This action shall reset the system represented by the resource.
+//
+//	For systems that implement ACPI Power Button functionality, the PushPowerButton value
+//
+// shall perform or emulate an ACPI Power Button Push, and the ForceOff value shall perform
+// an ACPI Power Button Override, commonly known as a four-second hold of the power button
 type Reset struct {
 	Target string `json:"Target,omitempty"`
 	Title  string `json:"Title,omitempty"`
 }
+
+// SetDefaultBootOrder redfish Structure
+// This action sets the BootOrder to the default settings
+// This action shall set the BootOrder array to the default settings
 type SetDefaultBootOrder struct {
 	Target string `json:"Target,omitempty"`
 	Title  string `json:"Title,omitempty"`
@@ -305,17 +330,23 @@ type LogEntry struct {
 }
 
 // Composition ...
+// Information about the composition capabilities and state of a computer system.
+// This type shall contain information about the composition capabilities and state of a computer system
 type Composition struct {
 	UseCases []string `json:"UseCases,omitempty"` //enum
 }
 
 // VirtualMediaConfig redfish structure
+// The information about virtual media service for this system
+// This type shall describe a virtual media service service for a computer system
 type VirtualMediaConfig struct {
 	Port           int  `json:"Port,omitempty"`
 	ServiceEnabled bool `json:"ServiceEnabled,omitempty"`
 }
 
 // SerialConsole redfish structure
+// The information about the serial console services that this system provides.
+// This type shall describe the serial console services for a computer system
 type SerialConsole struct {
 	IPMI                  interface{} `json:"IPMI,omitempty"`
 	MaxConcurrentSessions int         `json:"MaxConcurrentSessions,omitempty"`
@@ -324,6 +355,8 @@ type SerialConsole struct {
 }
 
 // BootProgress redfish structure
+// This object describes the last boot progress state
+// This object shall contain the last boot progress state and time
 type BootProgress struct {
 	LastBootTimeSeconds float32 `json:"LastBootTimeSeconds,omitempty"`
 	LastState           string  `json:"LastState,omitempty"` //enum
@@ -333,6 +366,9 @@ type BootProgress struct {
 }
 
 // KeyManagement redfish structure
+// The key management settings of a computer system
+// This object shall contain the key management settings of a computer system
+
 type KeyManagement struct {
 	KMIPCertificates *KMIPCertificates `json:"KMIPCertificates,omitempty"`
 	KMIPServers      []*KMIPServers    `json:"KMIPServers,omitempty"`
@@ -344,6 +380,8 @@ type KMIPCertificates struct {
 }
 
 // KMIPServers redfish structure
+// The KMIP server settings for a computer system
+// This object shall contain the KMIP server settings for a computer system
 type KMIPServers struct {
 	Address       string `json:"Address,omitempty"`
 	CacheDuration string `json:"CacheDuration,omitempty"`
@@ -354,6 +392,8 @@ type KMIPServers struct {
 }
 
 // IdlePowerSaver redfish structure
+// The idle power saver settings of a computer system
+// This object shall contain the idle power saver settings of a computer system
 type IdlePowerSaver struct {
 	Enabled                 bool    `json:"Enabled,omitempty"`
 	EnterDwellTimeSeconds   int     `json:"EnterDwellTimeSeconds,omitempty"`
@@ -382,6 +422,8 @@ type Bios struct {
 }
 
 // Boot redfish structure
+// The boot information for this resource.
+// This type shall contain properties that describe boot information for a system
 type Boot struct {
 	AliasBootOrder                  []string     `json:"AliasBootOrder,omitempty"` //enum
 	BootNext                        string       `json:"BootNext,omitempty"`
@@ -521,12 +563,16 @@ type VLANs struct {
 }
 
 // HostedServices redfish structure
+// The services that might be running or installed on the system
+// This type shall describe services that a computer system supports
 type HostedServices struct {
 	Oem             Oem             `json:"Oem"`
 	StorageServices StorageServices `json:"StorageServices"`
 }
 
 // HostWatchdogTimer redfish structure
+// This type describes the host watchdog timer functionality for this system
+// This type shall contain properties that describe the host watchdog timer functionality for this ComputerSystem
 type HostWatchdogTimer struct {
 	FunctionEnabled bool   `json:"FunctionEnabled"`
 	Oem             Oem    `json:"Oem"`
@@ -692,6 +738,8 @@ type MemoryChunks struct {
 }
 
 // MemorySummary in place object
+// The memory of the system in general detail
+// This type shall contain properties that describe the central memory for a system
 type MemorySummary struct {
 	MemoryMirroring                string  `json:"MemoryMirroring"` //enum
 	Metrics                        Metrics `json:"Metrics,omitempty"`
@@ -700,6 +748,9 @@ type MemorySummary struct {
 	Status                         Status  `json:"Status"` //deprecated
 }
 
+// SerialConsoleProtocol redfish structure
+// The information about a serial console service that this system provides
+// This type shall describe a serial console service for a computer system
 type SerialConsoleProtocol struct {
 	ConsoleEntryCommand   string `json:"ConsoleEntryCommand,omitempty"`
 	HotKeySequenceDisplay string `json:"HotKeySequenceDisplay,omitempty"`
@@ -998,6 +1049,11 @@ type SubProcessors struct {
 }
 
 // ProcessorSummary redfish structure
+// The central processors of the system in general detail
+// This type shall contain properties that describe the central processors for a system.
+//  Processors described by this type shall be limited to the processors that execute system code,
+// and shall not include processors used for offload functionality
+
 type ProcessorSummary struct {
 	CoreCount             int     `json:"CoreCount,omitempty"`
 	Count                 int     `json:"Count"`
@@ -1085,6 +1141,8 @@ type Device struct {
 }
 
 // TrustedModule redfish structure
+// The Trusted Module installed in the system
+// This type shall describe a Trusted Module for a system
 type TrustedModule struct {
 	FirmwareVersion        string `json:"FirmwareVersion"`
 	FirmwareVersion2       string `json:"FirmwareVersion2"`
