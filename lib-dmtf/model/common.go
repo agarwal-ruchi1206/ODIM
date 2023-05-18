@@ -123,3 +123,17 @@ type IOStatistics struct {
 	WriteIORequests    int    `json:"WriteIORequests,omitempty"`
 	WriteIORequestTime string `json:"WriteIORequestTime,omitempty"`
 }
+
+// Certificates redfish structure
+type Certificates struct {
+	Oid                  string `json:"@odata.id"`
+	Ocontext             string `json:"@odata.context,omitempty"`
+	Oetag                string `json:"@odata.etag,omitempty"`
+	Otype                string `json:"@odata.type"`
+	Description          string `json:"Description,omitempty"`
+	Members              string `json:"Members"`
+	MembersCount         int    `json:"Members@odata.count"`
+	MembersODataNextLink string `json:"Members@odata.nextLink,omitempty"`
+	Name                 string `json:"Name"`
+	Oem                  *Oem   `json:"Oem,omitempty"`
+}

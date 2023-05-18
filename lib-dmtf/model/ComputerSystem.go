@@ -19,83 +19,294 @@ import (
 	"github.com/ODIM-Project/ODIM/lib-utilities/errors"
 )
 
+// AliasBootOrder, BootSourceOverrideTarget
+type BootSource string
+
+type AutomaticRetryConfig string
+
+// BootOrderPropertySelection
+type BootOrderTypes string
+
+type BootSourceOverrideEnabled string
+
+type BootSourceOverrideMode string
+
+type StopBootOnFault string
+
+type TrustedModuleRequiredToBoot string
+
+type CompositionUseCase string
+
+type SystemType string
+
+type PowerRestorePolicyTypes string
+
+type InterfaceType string
+
+type InterfaceTypeSelection string
+
+type MemoryMirroring string
+
+type WatchdogWarningActions string
+
+type WatchdogTimeoutActions string
+
+type PowerMode string
+
+type CachePolicy string
+
+type HostingRole string
+
+type IndicatorLED string
+
+// LastState
+type BootProgressTypes string
+
+const (
+	BootSourceNone         BootSource = "None"
+	BootSourcePxe          BootSource = "Pxe"
+	BootSourceFloppy       BootSource = "Floppy"
+	BootSourceCd           BootSource = "Cd"
+	BootSourceUsb          BootSource = "Usb"
+	BootSourceHdd          BootSource = "Hdd"
+	BootSourceBiosSetup    BootSource = "BiosSetup"
+	BootSourceUtilities    BootSource = "Utilities"
+	BootSourceDiags        BootSource = "Diags"
+	BootSourceUefiShell    BootSource = "UefiShell"
+	BootSourceUefiTarget   BootSource = "UefiTarget"
+	BootSourceSDCard       BootSource = "SDCard"
+	BootSourceUefiHttp     BootSource = "UefiHttp"
+	BootSourceRemoteDrive  BootSource = "RemoteDrive"
+	BootSourceUefiBootNext BootSource = "UefiBootNext"
+	BootSourceRecovery     BootSource = "Recovery"
+
+	AutomaticRetryConfigDisabled      AutomaticRetryConfig = "Disabled"
+	AutomaticRetryConfigRetryAttempts AutomaticRetryConfig = "RetryAttempts"
+	AutomaticRetryConfigRetryAlways   AutomaticRetryConfig = "RetryAlways"
+
+	BootOrderTypesBootOrder      BootOrderTypes = "BootOrder"
+	BootOrderTypesAliasBootOrder BootOrderTypes = "AliasBootOrder"
+
+	BootSourceOverrideEnabledDisabled   BootSourceOverrideEnabled = "Disabled"
+	BootSourceOverrideEnabledOnce       BootSourceOverrideEnabled = "Once"
+	BootSourceOverrideEnabledContinuous BootSourceOverrideEnabled = "Continuous"
+
+	BootSourceOverrideModeLegacy BootSourceOverrideMode = "Legacy"
+	BootSourceOverrideModeUEFI   BootSourceOverrideMode = "UEFI"
+
+	StopBootOnFaultNever    StopBootOnFault = "Never"
+	StopBootOnFaultAnyFault StopBootOnFault = "AnyFault"
+
+	TrustedModuleRequiredToBootDisabled TrustedModuleRequiredToBoot = "Disabled"
+	TrustedModuleRequiredToBootRequired TrustedModuleRequiredToBoot = "Required"
+
+	BootProgressTypesNone                                    BootProgressTypes = "None"
+	BootProgressTypesPrimaryProcessorInitializationStarted   BootProgressTypes = "PrimaryProcessorInitializationStarted"
+	BootProgressTypesBusInitializationStarted                BootProgressTypes = "BusInitializationStarted"
+	BootProgressTypesMemoryInitializationStarted             BootProgressTypes = "MemoryInitializationStarted"
+	BootProgressTypesSecondaryProcessorInitializationStarted BootProgressTypes = "SecondaryProcessorInitializationStarted"
+	BootProgressTypesPCIResourceConfigStarted                BootProgressTypes = "PCIResourceConfigStarted"
+	BootProgressTypesSystemHardwareInitializationComplete    BootProgressTypes = "SystemHardwareInitializationComplete"
+	BootProgressTypesSetupEntered                            BootProgressTypes = "SetupEntered"
+	BootProgressTypesOSBootStarted                           BootProgressTypes = "OSBootStarted"
+	BootProgressTypesOSRunning                               BootProgressTypes = "OSRunning"
+	BootProgressTypesOEM                                     BootProgressTypes = "OEM"
+
+	//UseCases
+	CompositionUseCaseResourceBlockCapable CompositionUseCase = "ResourceBlockCapable"
+	CompositionUseCaseExpandableSystem     CompositionUseCase = "ExpandableSystem"
+
+	SystemTypePhysical              SystemType = "Physical"
+	SystemTypeVirtual               SystemType = "Virtual"
+	SystemTypeOS                    SystemType = "OS"
+	SystemTypePhysicallyPartitioned SystemType = "PhysicallyPartitioned"
+	SystemTypeVirtuallyPartitioned  SystemType = "VirtuallyPartitioned"
+	SystemTypeComposed              SystemType = "Composed"
+	SystemTypeDPU                   SystemType = "DPU"
+
+	InterfaceTypeTPM1_2 InterfaceType = "TPM1_2"
+	InterfaceTypeTPM2_0 InterfaceType = "TPM2_0"
+	InterfaceTypeTCM1_0 InterfaceType = "TCM1_0"
+
+	InterfaceTypeSelectionNone           InterfaceTypeSelection = "None"
+	InterfaceTypeSelectionFirmwareUpdate InterfaceTypeSelection = "FirmwareUpdate"
+	InterfaceTypeSelectionBiosSetting    InterfaceTypeSelection = "BiosSetting"
+	InterfaceTypeSelectionOemMethod      InterfaceTypeSelection = "OemMethod"
+
+	MemoryMirroringSystem MemoryMirroring = "System"
+	MemoryMirroringDIMM   MemoryMirroring = "DIMM"
+	MemoryMirroringHybrid MemoryMirroring = "Hybrid"
+	MemoryMirroringNone   MemoryMirroring = "None"
+
+	WatchdogWarningActionsNone                WatchdogWarningActions = "None"
+	WatchdogWarningActionsDiagnosticInterrupt WatchdogWarningActions = "DiagnosticInterrupt"
+	WatchdogWarningActionsSMI                 WatchdogWarningActions = "SMI"
+	WatchdogWarningActionsMessagingInterrupt  WatchdogWarningActions = "MessagingInterrupt"
+	WatchdogWarningActionsSCI                 WatchdogWarningActions = "SCI"
+	WatchdogWarningActionsOEM                 WatchdogWarningActions = "OEM"
+
+	WatchdogTimeoutActionsNone        WatchdogTimeoutActions = "None"
+	WatchdogTimeoutActionsResetSystem WatchdogTimeoutActions = "ResetSystem"
+	WatchdogTimeoutActionsPowerCycle  WatchdogTimeoutActions = "PowerCycle"
+	WatchdogTimeoutActionsPowerDown   WatchdogTimeoutActions = "PowerDown"
+	WatchdogTimeoutActionsOEM         WatchdogTimeoutActions = "OEM"
+
+	PowerRestorePolicyTypesAlwaysOn  PowerRestorePolicyTypes = "AlwaysOn"
+	PowerRestorePolicyTypesAlwaysOff PowerRestorePolicyTypes = "AlwaysOff"
+	PowerRestorePolicyTypesLastState PowerRestorePolicyTypes = "LastState"
+
+	PowerModeMaximumPerformance  PowerMode = "MaximumPerformance"
+	PowerModeBalancedPerformance PowerMode = "BalancedPerformance"
+	PowerModePowerSaving         PowerMode = "PowerSaving"
+	PowerModeStatic              PowerMode = "Static"
+	PowerModeOSControlled        PowerMode = "OSControlled"
+	PowerModeOEM                 PowerMode = "OEM"
+
+	CachePolicyNone          CachePolicy = "None"
+	CachePolicyAfterFirstUse CachePolicy = "AfterFirstUse"
+
+	HostingRoleApplicationServer    HostingRole = "ApplicationServer"
+	HostingRoleStorageServer        HostingRole = "StorageServer"
+	HostingRoleSwitch               HostingRole = "Switch"
+	HostingRoleAppliance            HostingRole = "Appliance"
+	HostingRoleBareMetalServer      HostingRole = "BareMetalServer"
+	HostingRoleVirtualMachineServer HostingRole = "VirtualMachineServer"
+	HostingRoleContainerServer      HostingRole = "ContainerServer"
+
+	IndicatorLEDUnknown  IndicatorLED = "Unknown"
+	IndicatorLEDLit      IndicatorLED = "Lit"
+	IndicatorLEDBlinking IndicatorLED = "Blinking"
+	IndicatorLEDOff      IndicatorLED = "Off"
+)
+
+type AddResourceBlock struct {
+	Target string `json:"Target,omitempty"`
+	Title  string `json:"title"`
+}
+
 // ComputerSystem redfish structure
 type ComputerSystem struct {
-	Ocontext                        string              `json:"@odata.context,omitempty"`
-	Oid                             string              `json:"@odata.id"`
-	Otype                           string              `json:"@odata.type"`
-	Oetag                           string              `json:"@odata.etag,omitempty"`
-	ID                              string              `json:"Id"`
-	Description                     string              `json:"Description,omitempty"`
-	Name                            string              `json:"Name"`
-	Actions                         *OemActions         `json:"Actions,omitempty"`
-	AssetTag                        string              `json:"AssetTag,omitempty"`
-	BiosVersion                     string              `json:"BiosVersion,omitempty"`
-	HostName                        string              `json:"HostName,omitempty"`
-	IndicatorLED                    string              `json:"IndicatorLED,omitempty"`
-	Manufacturer                    string              `json:"Manufacturer,omitempty"`
-	Model                           string              `json:"Model,omitempty"`
-	PartNumber                      string              `json:"PartNumber,omitempty"`
-	PowerRestorePolicy              string              `json:"PowerRestorePolicy,omitempty"`
-	PowerState                      string              `json:"PowerState,omitempty"`
-	SerialNumber                    string              `json:"SerialNumber,omitempty"`
-	SKU                             string              `json:"SKU,omitempty"`
-	SubModel                        string              `json:"SubModel,omitempty"`
-	SystemType                      string              `json:"SystemType,omitempty"`
-	UUID                            string              `json:"UUID,omitempty"`
-	HostingRoles                    []string            `json:"HostingRoles,omitempty"`
-	PCIeDevices                     []PCIeDevice        `json:"PCIeDevices,omitempty"`
-	PCIeFunctions                   []PCIeFunction      `json:"PCIeFunctions,omitempty"`
-	Bios                            Bios                `json:"Bios,omitempty"`
-	Boot                            Boot                `json:"Boot,omitempty"`
-	EthernetInterfaces              EthernetInterfaces  `json:"EthernetInterfaces,omitempty"`
-	HostedServices                  HostedServices      `json:"HostedServices,omitempty"`
-	HostWatchdogTimer               HostWatchdogTimer   `json:"HostWatchdogTimer,omitempty"`
-	Links                           Links               `json:"Links,omitempty"`
-	LogServices                     LogServices         `json:"LogServices,omitempty"`
-	Memory                          Memory              `json:"Memory,omitempty"`
-	MemoryDomains                   MemoryDomains       `json:"MemoryDomains,omitempty"`
-	MemorySummary                   MemorySummary       `json:"MemorySummary,omitempty"`
-	NetworkInterfaces               NetworkInterfaces   `json:"NetworkInterfaces,omitempty"`
-	Processors                      Processors          `json:"Processors,omitempty"`
-	ProcessorSummary                ProcessorSummary    `json:"ProcessorSummary,omitempty"`
-	Redundancy                      []Redundancy        `json:"Redundancy,omitempty"`
-	SecureBoot                      SecureBoot          `json:"SecureBoot,omitempty"`
-	SimpleStorage                   SimpleStorage       `json:"SimpleStorage,omitempty"`
-	Status                          Status              `json:"Status,omitempty"`
-	Storage                         Storage             `json:"Storage,omitempty"`
-	TrustedModules                  []TrustedModule     `json:"TrustedModules,omitempty"`
-	Oem                             Oem                 `json:"Oem,omitempty"`
-	PCIeDevicesCount                int                 `json:"PCIeDevices@odata.count,omitempty"`
-	IdlePowerSaver                  *IdlePowerSaver     `json:"IdlePowerSaver,omitempty"`
-	KeyManagement                   KeyManagement       `json:"KeyManagement,omitempty"`
-	BootProgress                    BootProgress        `json:"BootProgress,omitempty"`
-	Certificates                    Certificates        `json:"Certificates"`
-	FabricAdapters                  *Link               `json:"FabricAdapters,omitempty"`
-	GraphicalConsole                *GraphicalConsole   `json:"GraphicalConsole,omitempty"`
-	GraphicsControllers             *Link               `json:"GraphicsControllers,omitempty"`
-	LastResetTime                   string              `json:"LastResetTime,omitempty"`
-	LocationIndicatorActive         bool                `json:"LocationIndicatorActive,omitempty"`
-	Measurements                    []*Link             `json:"Measurements,omitempty"` //Deprecated in version v1.17.0
-	PCIeFunctionsCount              int                 `json:"PCIeFunctions@odata.count,omitempty"`
-	PowerCycleDelaySeconds          float32             `json:"PowerCycleDelaySeconds,omitempty"`
-	PowerMode                       string              `json:"PowerMode,omitempty"`
-	PowerOffDelaySeconds            float32             `json:"PowerOffDelaySeconds,omitempty"`
-	PowerOnDelaySeconds             float32             `json:"PowerOnDelaySeconds,omitempty"`
-	RedundancyCount                 int                 `json:"Redundancy@odata.count,omitempty"`
-	SerialConsole                   SerialConsole       `json:"SerialConsole,omitempty"`
-	USBControllers                  *Link               `json:"USBControllers,omitempty"`
-	VirtualMedia                    *Link               `json:"VirtualMedia,omitempty"`
-	VirtualMediaConfig              *VirtualMediaConfig `json:"VirtualMediaConfig,omitempty"`
-	OffloadedNetworkDeviceFunctions []*Link             `json:"OffloadedNetworkDeviceFunctions,omitempty"`
-	LastBootTimeSeconds             int                 `json:"LastBootTimeSeconds,omitempty"`
-	ManufacturingMode               bool                `json:"ManufacturingMode,omitempty"`
-	Composition                     *Composition        `json:"Composition,omitempty"`
+	Ocontext                        string                 `json:"@odata.context,omitempty"`
+	Oid                             string                 `json:"@odata.id"`
+	Otype                           string                 `json:"@odata.type"`
+	Oetag                           string                 `json:"@odata.etag,omitempty"`
+	ID                              string                 `json:"Id"`
+	Description                     string                 `json:"Description,omitempty"`
+	Name                            string                 `json:"Name"`
+	Actions                         *ComputerSystemActions `json:"Actions,omitempty"`
+	AssetTag                        string                 `json:"AssetTag,omitempty"`
+	BiosVersion                     string                 `json:"BiosVersion,omitempty"`
+	HostName                        string                 `json:"HostName,omitempty"`
+	IndicatorLED                    string                 `json:"IndicatorLED,omitempty"` //enum
+	Manufacturer                    string                 `json:"Manufacturer,omitempty"`
+	Model                           string                 `json:"Model,omitempty"`
+	PartNumber                      string                 `json:"PartNumber,omitempty"`
+	PowerRestorePolicy              string                 `json:"PowerRestorePolicy,omitempty"` //enum
+	PowerState                      string                 `json:"PowerState,omitempty"`
+	SerialNumber                    string                 `json:"SerialNumber,omitempty"`
+	SKU                             string                 `json:"SKU,omitempty"`
+	SubModel                        string                 `json:"SubModel,omitempty"`
+	SystemType                      string                 `json:"SystemType,omitempty"` //enum
+	UUID                            string                 `json:"UUID,omitempty"`
+	HostingRoles                    []string               `json:"HostingRoles,omitempty"` //enum
+	PCIeDevices                     []PCIeDevice           `json:"PCIeDevices,omitempty"`
+	PCIeFunctions                   []PCIeFunction         `json:"PCIeFunctions,omitempty"`
+	Bios                            Bios                   `json:"Bios,omitempty"`
+	Boot                            Boot                   `json:"Boot,omitempty"`
+	EthernetInterfaces              EthernetInterfaces     `json:"EthernetInterfaces,omitempty"`
+	HostedServices                  HostedServices         `json:"HostedServices,omitempty"`
+	HostWatchdogTimer               HostWatchdogTimer      `json:"HostWatchdogTimer,omitempty"`
+	Links                           Links                  `json:"Links,omitempty"`
+	LogServices                     LogServices            `json:"LogServices,omitempty"`
+	Memory                          Memory                 `json:"Memory,omitempty"`
+	MemoryDomains                   MemoryDomains          `json:"MemoryDomains,omitempty"`
+	MemorySummary                   MemorySummary          `json:"MemorySummary,omitempty"`
+	NetworkInterfaces               NetworkInterfaces      `json:"NetworkInterfaces,omitempty"`
+	Processors                      Processors             `json:"Processors,omitempty"`
+	ProcessorSummary                ProcessorSummary       `json:"ProcessorSummary,omitempty"`
+	Redundancy                      []Redundancy           `json:"Redundancy,omitempty"`
+	SecureBoot                      SecureBoot             `json:"SecureBoot,omitempty"`
+	SimpleStorage                   SimpleStorage          `json:"SimpleStorage,omitempty"`
+	Status                          Status                 `json:"Status,omitempty"`
+	Storage                         Storage                `json:"Storage,omitempty"`
+	TrustedModules                  []TrustedModule        `json:"TrustedModules,omitempty"`
+	Oem                             Oem                    `json:"Oem,omitempty"`
+	PCIeDevicesCount                int                    `json:"PCIeDevices@odata.count,omitempty"`
+	IdlePowerSaver                  *IdlePowerSaver        `json:"IdlePowerSaver,omitempty"`
+	KeyManagement                   KeyManagement          `json:"KeyManagement,omitempty"`
+	BootProgress                    BootProgress           `json:"BootProgress,omitempty"`
+	Certificates                    Certificates           `json:"Certificates"`
+	FabricAdapters                  *Link                  `json:"FabricAdapters,omitempty"`
+	GraphicalConsole                *GraphicalConsole      `json:"GraphicalConsole,omitempty"`
+	GraphicsControllers             *Link                  `json:"GraphicsControllers,omitempty"`
+	LastResetTime                   string                 `json:"LastResetTime,omitempty"`
+	LocationIndicatorActive         bool                   `json:"LocationIndicatorActive,omitempty"`
+	Measurements                    []*Link                `json:"Measurements,omitempty"` //Deprecated in version v1.17.0
+	PCIeFunctionsCount              int                    `json:"PCIeFunctions@odata.count,omitempty"`
+	PowerCycleDelaySeconds          float32                `json:"PowerCycleDelaySeconds,omitempty"`
+	PowerMode                       string                 `json:"PowerMode,omitempty"` //enum
+	PowerOffDelaySeconds            float32                `json:"PowerOffDelaySeconds,omitempty"`
+	PowerOnDelaySeconds             float32                `json:"PowerOnDelaySeconds,omitempty"`
+	RedundancyCount                 int                    `json:"Redundancy@odata.count,omitempty"`
+	SerialConsole                   SerialConsole          `json:"SerialConsole,omitempty"`
+	USBControllers                  *Link                  `json:"USBControllers,omitempty"`
+	VirtualMedia                    *Link                  `json:"VirtualMedia,omitempty"`
+	VirtualMediaConfig              *VirtualMediaConfig    `json:"VirtualMediaConfig,omitempty"`
+	OffloadedNetworkDeviceFunctions []*Link                `json:"OffloadedNetworkDeviceFunctions,omitempty"`
+	LastBootTimeSeconds             int                    `json:"LastBootTimeSeconds,omitempty"`
+	ManufacturingMode               bool                   `json:"ManufacturingMode,omitempty"`
+	Composition                     *Composition           `json:"Composition,omitempty"`
+}
+
+type ComputerSystemActions struct {
+	AddResourceBlock    *AddResourceBlock    `json:"AddResourceBlock,omitempty"`
+	RemoveResourceBlock *RemoveResourceBlock `json:"RemoveResourceBlock,omitempty"`
+	Reset               *Reset               `json:"Reset,omitempty"`
+	SetDefaultBootOrder *SetDefaultBootOrder `json:"SetDefaultBootOrder,omitempty"`
+	Oem                 *OemActions          `json:"Oem,omitempty"`
+}
+
+type RemoveResourceBlock struct {
+	Target string `json:"Target,omitempty"`
+	Title  string `json:"Title,omitempty"`
+}
+type Reset struct {
+	Target string `json:"Target,omitempty"`
+	Title  string `json:"Title,omitempty"`
+}
+type SetDefaultBootOrder struct {
+	Target string `json:"Target,omitempty"`
+	Title  string `json:"Title,omitempty"`
+}
+
+type LogEntry struct {
+	Oid                     string   `json:"@odata.id"`
+	Ocontext                string   `json:"@odata.context,omitempty"`
+	Oetag                   string   `json:"@odata.etag,omitempty"`
+	Otype                   string   `json:"@odata.type"`
+	Description             string   `json:"description,omitempty"`
+	Actions                 *Actions `json:"Actions,omitempty"`
+	ID                      string   `json:"Id"`
+	AdditionalDataSizeBytes int      `json:"AdditionalDataSizeBytes,omitempty"`
+	AdditionalDataURI       string   `json:"AdditionalDataURI,omitempty"`
+	Created                 string   `json:"Created,omitempty"`
+	MessageArgs             string   `json:"MessageArgs,omitempty"`
+	MessageId               string   `json:"MessageId,omitempty"`
+	Name                    string   `json:"Name"`
+	OEMDiagnosticDataType   string   `json:"OEMDiagnosticDataType,omitempty"`
+	Oem                     *Oem     `json:"Oem,omitempty"`
+	Resolved                bool     `json:"Resolved,omitempty"`
+	Resolution              string   `json:"Resolution,omitempty"`
+	Persistency             bool     `json:"Persistency,omitempty"`
+	OverflowErrorCount      int      `json:"OverflowErrorCount,omitempty"`
+	Originator              string   `json:"Originator,omitempty"`
+	OemSensorType           string   `json:"OemSensorType,omitempty"`
+	OemRecordFormat         string   `json:"OemRecordFormat,omitempty"`
 }
 
 // Composition ...
 type Composition struct {
-	UseCases []string `json:"UseCases,omitempty"`
+	UseCases []string `json:"UseCases,omitempty"` //enum
 }
 
 // VirtualMediaConfig redfish structure
@@ -114,10 +325,11 @@ type SerialConsole struct {
 
 // BootProgress redfish structure
 type BootProgress struct {
-	LastState     string `json:"LastState,omitempty"`
-	LastStateTime string `json:"LastStateTime,omitempty"`
-	Oem           *Oem   `json:"Oem,omitempty"`
-	OemLastState  string `json:"OemLastState,omitempty"`
+	LastBootTimeSeconds float32 `json:"LastBootTimeSeconds,omitempty"`
+	LastState           string  `json:"LastState,omitempty"` //enum
+	LastStateTime       string  `json:"LastStateTime,omitempty"`
+	Oem                 *Oem    `json:"Oem,omitempty"`
+	OemLastState        string  `json:"OemLastState,omitempty"`
 }
 
 // KeyManagement redfish structure
@@ -133,10 +345,12 @@ type KMIPCertificates struct {
 
 // KMIPServers redfish structure
 type KMIPServers struct {
-	Address  string `json:"Address,omitempty"`
-	Password string `json:"Password,omitempty"`
-	Port     int    `json:"Port,omitempty"`
-	Username string `json:"Username,omitempty"`
+	Address       string `json:"Address,omitempty"`
+	CacheDuration string `json:"CacheDuration,omitempty"`
+	CachePolicy   string `json:"CachePolicy,omitempty"` //enum
+	Password      string `json:"Password,omitempty"`
+	Port          int    `json:"Port,omitempty"`
+	Username      string `json:"Username,omitempty"`
 }
 
 // IdlePowerSaver redfish structure
@@ -169,22 +383,22 @@ type Bios struct {
 
 // Boot redfish structure
 type Boot struct {
-	AliasBootOrder                  []string     `json:"AliasBootOrder,omitempty"`
+	AliasBootOrder                  []string     `json:"AliasBootOrder,omitempty"` //enum
 	BootNext                        string       `json:"BootNext,omitempty"`
-	BootOptions                     BootOptions  `json:"BootOptions,omitempty"`
+	BootOptions                     *BootOptions `json:"BootOptions,omitempty"`
 	BootOrder                       []string     `json:"BootOrder,omitempty"`
-	BootOrderPropertySelection      string       `json:"BootOrderPropertySelection,omitempty"`
-	BootSourceOverrideEnabled       string       `json:"BootSourceOverrideEnabled,omitempty"`
-	BootSourceOverrideMode          string       `json:"BootSourceOverrideMode,omitempty"`
-	BootSourceOverrideTarget        string       `json:"BootSourceOverrideTarget,omitempty"`
+	BootOrderPropertySelection      string       `json:"BootOrderPropertySelection,omitempty"` //enum
+	BootSourceOverrideEnabled       string       `json:"BootSourceOverrideEnabled,omitempty"`  //enum
+	BootSourceOverrideMode          string       `json:"BootSourceOverrideMode,omitempty"`     //enum
+	BootSourceOverrideTarget        string       `json:"BootSourceOverrideTarget,omitempty"`   //enum
 	Certificates                    Certificates `json:"Certificates,omitempty"`
 	UefiTargetBootSourceOverride    string       `json:"UefiTargetBootSourceOverride,omitempty"`
 	AutomaticRetryAttempts          int          `json:"AutomaticRetryAttempts,omitempty"`
 	AutomaticRetryConfig            string       `json:"AutomaticRetryConfig,omitempty"`
 	HTTPBootURI                     string       `json:"HttpBootUri,omitempty"`
 	RemainingAutomaticRetryAttempts int          `json:"RemainingAutomaticRetryAttempts,omitempty"`
-	StopBootOnFault                 string       `json:"StopBootOnFault,omitempty"`
-	TrustedModuleRequiredToBoot     string       `json:"TrustedModuleRequiredToBoot,omitempty"`
+	StopBootOnFault                 string       `json:"StopBootOnFault,omitempty"`             //enum
+	TrustedModuleRequiredToBoot     string       `json:"TrustedModuleRequiredToBoot,omitempty"` //enum
 }
 
 // EthernetInterfaces get
@@ -317,8 +531,8 @@ type HostWatchdogTimer struct {
 	FunctionEnabled bool   `json:"FunctionEnabled"`
 	Oem             Oem    `json:"Oem"`
 	Status          Status `json:"Status"`
-	TimeoutAction   string `json:"TimeoutAction"`
-	WarningAction   string `json:"WarningAction"`
+	TimeoutAction   string `json:"TimeoutAction"` //enum
+	WarningAction   string `json:"WarningAction"` //enum
 }
 
 // Memory redfish structure
@@ -479,10 +693,19 @@ type MemoryChunks struct {
 
 // MemorySummary in place object
 type MemorySummary struct {
-	MemoryMirroring                string `json:"MemoryMirroring"`
-	TotalSystemMemoryGiB           int    `json:"TotalSystemMemoryGiB"`
-	TotalSystemPersistentMemoryGiB int    `json:"TotalSystemPersistentMemoryGiB"`
-	Status                         Status `json:"Status"` //deprecated
+	MemoryMirroring                string  `json:"MemoryMirroring"` //enum
+	Metrics                        Metrics `json:"Metrics,omitempty"`
+	TotalSystemMemoryGiB           int     `json:"TotalSystemMemoryGiB"`
+	TotalSystemPersistentMemoryGiB int     `json:"TotalSystemPersistentMemoryGiB"`
+	Status                         Status  `json:"Status"` //deprecated
+}
+
+type SerialConsoleProtocol struct {
+	ConsoleEntryCommand   string `json:"ConsoleEntryCommand,omitempty"`
+	HotKeySequenceDisplay string `json:"HotKeySequenceDisplay,omitempty"`
+	Port                  int    `json:"Port,omitempty"`
+	ServiceEnabled        bool   `json:"ServiceEnabled,omitempty"`
+	SharedWithManagerCLI  bool   `json:"SharedWithManagerCLI,omitempty"`
 }
 
 //NetworkInterfaces get
@@ -776,11 +999,13 @@ type SubProcessors struct {
 
 // ProcessorSummary redfish structure
 type ProcessorSummary struct {
+	CoreCount             int     `json:"CoreCount,omitempty"`
 	Count                 int     `json:"Count"`
 	LogicalProcessorCount int     `json:"LogicalProcessorCount"`
 	Model                 string  `json:"Model"`
 	Metrics               Metrics `json:"Metrics"`
 	Status                Status  `json:"Status"` //deprecated
+	ThreadingEnabled      bool    `json:"ThreadingEnabled,omitempty"`
 }
 
 // SecureBoot redfish structure
@@ -863,30 +1088,94 @@ type Device struct {
 type TrustedModule struct {
 	FirmwareVersion        string `json:"FirmwareVersion"`
 	FirmwareVersion2       string `json:"FirmwareVersion2"`
-	InterfaceType          string `json:"InterfaceType"`
-	InterfaceTypeSelection string `json:"InterfaceTypeSelection"`
+	InterfaceType          string `json:"InterfaceType"`          //enum
+	InterfaceTypeSelection string `json:"InterfaceTypeSelection"` //enum
 	Oem                    Oem    `json:"Oem"`
 	Status                 Status `json:"Status"`
 }
 
 // BootOptions redfish structure
 type BootOptions struct {
-	Oid string `json:"@odata.id"`
-}
-
-// Certificates redfish structure
-type Certificates struct {
-	Oid string `json:"@odata.id"`
+	ODataContext         string   `json:"@odata.context,omitempty"`
+	ODataEtag            string   `json:"@odata.etag,omitempty"`
+	ODataID              string   `json:"@odata.id"`
+	ODataType            string   `json:"@odata.type"`
+	Description          string   `json:"Description,omitempty"`
+	Members              []string `json:"Members"`
+	MembersODataCount    int      `json:"Members@odata.count"`
+	MembersODataNextLink string   `json:"Members@odata.nextLink,omitempty"`
+	Name                 string   `json:"Name"`
+	Oem                  *Oem     `json:"Oem,omitempty"`
 }
 
 // StorageServices redfish structure
 type StorageServices struct {
-	Oid string `json:"@odata.id"`
+	Oid                  string `json:"@odata.id"`
+	Ocontext             string `json:"@odata.context,omitempty"`
+	Oetag                string `json:"@odata.etag,omitempty"`
+	Otype                string `json:"@odata.type"`
+	Description          string `json:"Description,omitempty"`
+	Members              string `json:"Members"`
+	MembersCount         int    `json:"Members@odata.count"`
+	MembersODataNextLink string `json:"Members@odata.nextLink,omitempty"`
+	Name                 string `json:"Name"`
+	Oem                  *Oem   `json:"Oem,omitempty"`
 }
 
 // Metrics redfish structure
 type Metrics struct {
-	Oid string `json:"@odata.id"`
+	Oid                          string             `json:"@odata.id"`
+	Ocontext                     string             `json:"@odata.context,omitempty"`
+	Oetag                        string             `json:"@odata.etag,omitempty"`
+	Otype                        string             `json:"@odata.type"`
+	Actions                      Actions            `json:"Actions,omitempty"`
+	AverageFrequencyMHz          float32            `json:"AverageFrequencyMHz,omitempty"`
+	BandwidthPercent             float32            `json:"BandwidthPercent,omitempty"`
+	CacheMetrics                 *CacheMetrics      `json:"CacheMetrics,omitempty"`
+	CacheMetricsTotal            *CacheMetricsTotal `json:"CacheMetricsTotal,omitempty"`
+	ConsumedPowerWatt            float32            `json:"ConsumedPowerWatt,omitempty"`
+	CorrectableCoreErrorCount    int                `json:"CorrectableCoreErrorCount,omitempty"`
+	CorrectableOtherErrorCount   int                `json:"CorrectableOtherErrorCount,omitempty"`
+	Description                  string             `json:"Description,omitempty"`
+	FrequencyRatio               float32            `json:"FrequencyRatio,omitempty"`
+	KernelPercent                float32            `json:"KernelPercent,omitempty"`
+	LocalMemoryBandwidthBytes    int                `json:"LocalMemoryBandwidthBytes,omitempty"`
+	Id                           string             `json:"Id"`
+	Name                         string             `json:"Name"`
+	Oem                          Oem                `json:"Oem,omitempty"`
+	OperatingSpeedMHz            int                `json:"OperatingSpeedMHz,omitempty"`
+	PowerLimitThrottleDuration   string             `json:"PowerLimitThrottleDuration,omitempty"`
+	RemoteMemoryBandwidthBytes   int                `json:"RemoteMemoryBandwidthBytes,omitempty"`
+	TemperatureCelsius           float32            `json:"TemperatureCelsius,omitempty"`
+	ThermalLimitThrottleDuration string             `json:"ThermalLimitThrottleDuration,omitempty"`
+	ThrottlingCelsius            float32            `json:"ThrottlingCelsius,omitempty"`
+	UncorrectableCoreErrorCount  int                `json:"UncorrectableCoreErrorCount,omitempty"`
+	UncorrectableOtherErrorCount int                `json:"UncorrectableOtherErrorCount,omitempty"`
+	UserPercent                  float32            `json:"UserPercent,omitempty"`
+}
+
+type CacheMetrics struct {
+	CacheMiss                 float32 `json:"CacheMiss,omitempty"`
+	CacheMissesPerInstruction float32 `json:"CacheMissesPerInstruction,omitempty"`
+	HitRatio                  float32 `json:"HitRatio,omitempty"`
+	Level                     string  `json:"Level,omitempty"`
+	OccupancyBytes            int     `json:"OccupancyBytes,omitempty"`
+	OccupancyPercent          float32 `json:"OccupancyPercent,omitempty"`
+}
+
+type CacheMetricsTotal struct {
+	CurrentPeriod CurrentPeriod `json:"CurrentPeriod,omitempty"`
+	LifeTime      LifeTime      `json:"LifeTime,omitempty"`
+}
+
+type CurrentPeriod struct {
+	CorrectableECCErrorCount   int `json:"CorrectableECCErrorCount,omitempty"`
+	UncorrectableECCErrorCount int `json:"UncorrectableECCErrorCount,omitempty"`
+}
+
+type LifeTime struct {
+	CorrectableECCErrorCount   int `json:"CorrectableECCErrorCount,omitempty"`
+	UncorrectableECCErrorCount int `json:"UncorrectableECCErrorCount,omitempty"`
 }
 
 // SaveInMemory will create the ComputerSystem data in in-memory DB, with key as UUID
