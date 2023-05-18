@@ -100,6 +100,13 @@ const (
 
 // AccountService the supported properties,
 // this structure should be updated once ODIMRA supports more properties
+// The AccountService schema defines an account service.  The properties are common to, and enable management of,
+// all user accounts.  The properties include the password requirements and control features, such as account
+// lockout.  Properties and actions in this service specify general behavior that should be followed
+// for typical accounts, however implementations may override these behaviors for special accounts
+// or situations to avoid denial of service or other deadlock situations.
+
+//Reference  :AccountService.v1_12_0.json
 type AccountService struct {
 	ODataContext                       string                              `json:"@odata.context,omitempty"`
 	ODataEtag                          string                              `json:"@odata.etag,omitempty"`
@@ -136,6 +143,9 @@ type AccountService struct {
 	LocalAccountAuth                   string                              `json:"LocalAccountAuth,omitempty"` //enum
 }
 
+// Authentication redfish structure
+// The information required to authenticate to the external service
+// This type shall contain the information required to authenticate to the external service
 type Authentication struct {
 	AuthenticationType string `json:"AuthenticationType,omitempty"` //enum
 	EncryptionKey      string `json:"EncryptionKey,omitempty"`
@@ -145,6 +155,10 @@ type Authentication struct {
 	Password           string `json:"Password,omitempty"`
 	Username           string `json:"Username,omitempty"`
 }
+
+// ClientCertificate redfish structure
+// Various settings for client certificate authentication such as mTLS or CAC/PIV
+// This type shall contain settings for client certificate authentication
 type ClientCertificate struct {
 	CertificateMappingAttribute     string       `json:"CertificateMappingAttribute,omitempty"` //enum
 	Certificates                    Certificates `json:"Certificates,omitempty"`
@@ -152,6 +166,10 @@ type ClientCertificate struct {
 	RespondToUnauthenticatedClients bool         `json:"RespondToUnauthenticatedClients,omitempty"`
 }
 
+// ExternalAccountProvider redfish structure
+// The external account provider services that can provide accounts for this manager to use for authentication
+// This type shall contain properties that represent external account provider services
+// that can provide accounts for this manager to use for authentication
 type ExternalAccountProvider struct {
 	AccountProviderType string             `json:"AccountProviderType,omitempty"` //enum
 	Authentication      *Authentication    `json:"Authentication,omitempty"`
@@ -166,12 +184,18 @@ type ExternalAccountProvider struct {
 	TACACSplusService   *TACACSplusService `json:"TACACSplusService,omitempty"`
 }
 
+// GoogleAuthenticator redfish structure
+// Various settings for Google Authenticator multi-factor authentication
+// This type shall contain settings for Google Authenticator multi-factor authentication
 type GoogleAuthenticator struct {
 	Enabled      bool   `json:"Enabled,omitempty"`
 	SecretKey    string `json:"SecretKey,omitempty"`
 	SecretKeySet bool   `json:"SecretKeySet,omitempty"`
 }
 
+// LDAPSearchSettings redfish structure
+// The settings to search a generic LDAP service
+// This type shall contain all required settings to search a generic LDAP service
 type LDAPSearchSettings struct {
 	BaseDistinguishedNames []string `json:"BaseDistinguishedNames,omitempty"`
 	GroupNameAttribute     string   `json:"GroupNameAttribute,omitempty"`
@@ -180,21 +204,33 @@ type LDAPSearchSettings struct {
 	UsernameAttribute      string   `json:"UsernameAttribute,omitempty"`
 }
 
+// LDAPService redfish structure
+// The settings required to parse a generic LDAP service
+// This type shall contain all required settings to parse a generic LDAP service
 type LDAPService struct {
 	Oem            *Oem                `json:"Oem,omitempty"`
 	SearchSettings *LDAPSearchSettings `json:"SearchSettings,omitempty"`
 }
 
+// MFABypass redfish structure
+// Multi-factor authentication bypass settings
+// This type shall contain multi-factor authentication bypass settings
 type MFABypass struct {
 	BypassTypes []string `json:"BypassTypes,omitempty"`
 }
 
+// MicrosoftAuthenticator redfish structure
+// Various settings for Microsoft Authenticator multi-factor authentication
+// This type shall contain settings for Microsoft Authenticator multi-factor authentication
 type MicrosoftAuthenticator struct {
 	Enabled      bool   `json:"Enabled,omitempty"`
 	SecretKey    string `json:"SecretKey,omitempty"`
 	SecretKeySet bool   `json:"SecretKeySet,omitempty"`
 }
 
+// MultiFactorAuth redfish structure
+// Multi-factor authentication settings
+// This type shall contain multi-factor authentication settings
 type MultiFactorAuth struct {
 	ClientCertificate      *ClientCertificate      `json:"ClientCertificate,omitempty"`
 	GoogleAuthenticator    *GoogleAuthenticator    `json:"GoogleAuthenticator,omitempty"`
@@ -202,6 +238,9 @@ type MultiFactorAuth struct {
 	SecurID                *SecurID                `json:"SecurID,omitempty"`
 }
 
+// OAuth2Service redfish structure
+// Various settings to parse an OAuth 2.0 service
+// This type shall contain settings for parsing an OAuth 2.0 service
 type OAuth2Service struct {
 	Audience                []string `json:"Audience,omitempty"`
 	Issuer                  string   `json:"Issuer,omitempty"`
@@ -209,6 +248,9 @@ type OAuth2Service struct {
 	OAuthServiceSigningKeys string   `json:"OAuthServiceSigningKeys,omitempty"`
 }
 
+// SecurID redfish structure
+// Various settings for RSA SecurID multi-factor authentication
+// This type shall contain settings for RSA SecurID multi-factor authentication
 type SecurID struct {
 	Certificates    *Certificates `json:"Certificates,omitempty"`
 	ClientId        string        `json:"ClientId,omitempty"`
@@ -218,6 +260,11 @@ type SecurID struct {
 	ServerURI       string        `json:"ServerURI,omitempty"`
 }
 
+// RoleMapping redfish structure
+// The mapping rules that are used to convert the external account providers account
+// information to the local Redfish role
+// This type shall contain mapping rules that are used to convert the external account
+// providers account information to the local Redfish role
 type RoleMapping struct {
 	LocalRole   string     `json:"LocalRole,omitempty"`
 	MFABypass   *MFABypass `json:"MFABypass,omitempty"`
@@ -226,6 +273,9 @@ type RoleMapping struct {
 	RemoteUser  string     `json:"RemoteUser,omitempty"`
 }
 
+// TACACSplusService redfish structure
+// Various settings to parse a TACACS+ service
+// This type shall contain settings for parsing a TACACS+ service
 type TACACSplusService struct {
 	PasswordExchangeProtocols string `json:"PasswordExchangeProtocols,omitempty"` //enum
 	PrivilegeLevelArgument    string `json:"PrivilegeLevelArgument,omitempty"`

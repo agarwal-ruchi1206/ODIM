@@ -86,6 +86,8 @@ type CommandShell struct {
 }
 
 // GraphicalConsole redfish structure
+//The information about a graphical console service for this system.
+// This type shall describe a graphical console service for a computer system.
 type GraphicalConsole struct {
 	ConnectTypesSupported []string `json:"ConnectTypesSupported"` //enum
 	MaxConcurrentSessions int      `json:"MaxConcurrentSessions"`
