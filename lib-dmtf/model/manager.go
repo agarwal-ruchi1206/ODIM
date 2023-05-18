@@ -14,6 +14,14 @@
 
 package model
 
+//ConnectTypesSupported
+type GraphicalConnectTypesSupported string
+
+const (
+	GraphicalConnectTypesSupportedKVMIP GraphicalConnectTypesSupported = "KVMIP"
+	GraphicalConnectTypesSupportedCOEM  GraphicalConnectTypesSupported = "OEM"
+)
+
 // Manager is the redfish Manager model according to the 2020.3 release
 type Manager struct {
 	ODataContext               string                      `json:"@odata.context,omitempty"`
@@ -79,8 +87,9 @@ type CommandShell struct {
 
 // GraphicalConsole redfish structure
 type GraphicalConsole struct {
-	ConnectTypesSupported []string `json:"ConnectTypesSupported"`
+	ConnectTypesSupported []string `json:"ConnectTypesSupported"` //enum
 	MaxConcurrentSessions int      `json:"MaxConcurrentSessions"`
+	Port                  int      `json:"Port,omitempty"`
 	ServiceEnabled        bool     `json:"ServiceEnabled"`
 }
 
