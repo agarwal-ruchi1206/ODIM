@@ -19,164 +19,355 @@ import (
 	"github.com/ODIM-Project/ODIM/lib-utilities/errors"
 )
 
-// AliasBootOrder, BootSourceOverrideTarget
+// BootSource- AliasBootOrder, BootSourceOverrideTarget
+// Ordered array of boot source aliases representing the persistent
+// boot order associated with this computer system
 type BootSource string
 
+// AutomaticRetryConfig - The configuration of how the system retries booting automatically
 type AutomaticRetryConfig string
 
-// BootOrderPropertySelection
+// BootOrderProperty - The name of the boot order property that the system uses for the persistent boot order
 type BootOrderTypes string
 
+// BootSourceOverrideEnabled - The state of the boot source override feature
 type BootSourceOverrideEnabled string
 
+// BootSourceOverrideMode - The BIOS boot mode to use when the system boots from the BootSourceOverrideTarget boot source
 type BootSourceOverrideMode string
 
+// StopBootOnFault - If the boot should stop on a fault
 type StopBootOnFault string
 
+// TrustedModuleRequiredToBoot - The Trusted Module boot requirement
 type TrustedModuleRequiredToBoot string
 
+// CompositionUseCase - The composition use cases in which this computer system can participate
 type CompositionUseCase string
 
+// SystemType -The type of computer system that this resource represents
 type SystemType string
 
+// PowerRestorePolicyTypes -The desired power state of the system when power is restored after a power loss
 type PowerRestorePolicyTypes string
 
+// InterfaceType - The interface type of the Trusted Module
 type InterfaceType string
 
+// InterfaceTypeSelection - The interface type selection supported by this Trusted Module
 type InterfaceTypeSelection string
 
+// MemoryMirroring - The ability and type of memory mirroring that this computer system supports
 type MemoryMirroring string
 
+// WatchdogWarningActions - The action to perform when the watchdog timer is close to reaching its timeout value
 type WatchdogWarningActions string
 
+// WatchdogTimeoutActions - The action to perform when the watchdog timer reaches its timeout value
 type WatchdogTimeoutActions string
 
+// PowerMode - The power mode setting of the computer system
 type PowerMode string
 
+// CachePolicy - he cache policy to control how KMIP data is cached
 type CachePolicy string
 
+// HostingRole - The hosting roles that this computer system supports
 type HostingRole string
 
+// IndicatorLED - The state of the indicator LED, which identifies the system
 type IndicatorLED string
 
-// LastState
+// LastState - The last boot progress state
 type BootProgressTypes string
 
 const (
-	BootSourceNone         BootSource = "None"
-	BootSourcePxe          BootSource = "Pxe"
-	BootSourceFloppy       BootSource = "Floppy"
-	BootSourceCd           BootSource = "Cd"
-	BootSourceUsb          BootSource = "Usb"
-	BootSourceHdd          BootSource = "Hdd"
-	BootSourceBiosSetup    BootSource = "BiosSetup"
-	BootSourceUtilities    BootSource = "Utilities"
-	BootSourceDiags        BootSource = "Diags"
-	BootSourceUefiShell    BootSource = "UefiShell"
-	BootSourceUefiTarget   BootSource = "UefiTarget"
-	BootSourceSDCard       BootSource = "SDCard"
-	BootSourceUefiHttp     BootSource = "UefiHttp"
-	BootSourceRemoteDrive  BootSource = "RemoteDrive"
+
+	// BootSourceNone - Boot from the normal boot device
+	BootSourceNone BootSource = "None"
+
+	//BootSourcePxe - Boot from the Pre-Boot EXecution (PXE) environmen
+	BootSourcePxe BootSource = "Pxe"
+
+	//BootSourceFloppy - Boot from the floppy disk drive
+	BootSourceFloppy BootSource = "Floppy"
+
+	//BootSourceCd - Boot from the CD or DVD
+	BootSourceCd BootSource = "Cd"
+
+	//BootSourceUsb - Boot from a system BIOS-specified USB device
+	BootSourceUsb BootSource = "Usb"
+
+	//BootSourceHdd - Boot from a hard drive
+	BootSourceHdd BootSource = "Hdd"
+	// BootSourceBiosSetup- Boot to the BIOS setup utility
+	BootSourceBiosSetup BootSource = "BiosSetup"
+
+	//BootSourceUtilities
+	BootSourceUtilities BootSource = "Utilities"
+
+	//BootSourceDiags - Boot to the manufacturer's diagnostics program
+	BootSourceDiags BootSource = "Diags"
+
+	//BootSourceUefiShell - Boot to the UEFI Shell
+	BootSourceUefiShell BootSource = "UefiShell"
+
+	//BootSourceUefiTarget - Boot to the UEFI device specified in the UefiTargetBootSourceOverride property
+	BootSourceUefiTarget BootSource = "UefiTarget"
+
+	//BootSourceSDCard - Boot from an SD card
+	BootSourceSDCard BootSource = "SDCard"
+
+	//BootSourceUefiHttp - Boot from a UEFI HTTP network location
+	BootSourceUefiHttp BootSource = "UefiHttp"
+
+	//BootSourceRemoteDrive - Boot from a remote drive, such as an iSCSI target
+	BootSourceRemoteDrive BootSource = "RemoteDrive"
+
+	//BootSourceUefiBootNext - Boot to the UEFI device that the BootNext property specifies
 	BootSourceUefiBootNext BootSource = "UefiBootNext"
-	BootSourceRecovery     BootSource = "Recovery"
 
-	AutomaticRetryConfigDisabled      AutomaticRetryConfig = "Disabled"
+	//BootSourceRecovery - Boot to a system-designated recovery process or image
+	BootSourceRecovery BootSource = "Recovery"
+
+	//AutomaticRetryConfigDisabled- Disable automatic retrying of booting
+	AutomaticRetryConfigDisabled AutomaticRetryConfig = "Disabled"
+
+	//AutomaticRetryConfigRetryAttempts - Always automatically retry booting
 	AutomaticRetryConfigRetryAttempts AutomaticRetryConfig = "RetryAttempts"
-	AutomaticRetryConfigRetryAlways   AutomaticRetryConfig = "RetryAlways"
 
-	BootOrderTypesBootOrder      BootOrderTypes = "BootOrder"
+	//AutomaticRetryConfigRetryAlways- Automatic retrying of booting is based on a specified retry count
+	AutomaticRetryConfigRetryAlways AutomaticRetryConfig = "RetryAlways"
+
+	//BootOrderTypesBootOrder - The system uses the BootOrder property to specify the persistent boot order
+	BootOrderTypesBootOrder BootOrderTypes = "BootOrder"
+
+	//BootOrderTypesAliasBootOrder - The system uses the AliasBootOrder property to specify the persistent boot order
 	BootOrderTypesAliasBootOrder BootOrderTypes = "AliasBootOrder"
 
-	BootSourceOverrideEnabledDisabled   BootSourceOverrideEnabled = "Disabled"
-	BootSourceOverrideEnabledOnce       BootSourceOverrideEnabled = "Once"
+	//BootSourceOverrideEnabledDisabled - The system boots normally
+	BootSourceOverrideEnabledDisabled BootSourceOverrideEnabled = "Disabled"
+
+	//BootSourceOverrideEnabledOnce - On its next boot cycle, the system boots one time to the boot source override target
+	BootSourceOverrideEnabledOnce BootSourceOverrideEnabled = "Once"
+
+	//BootSourceOverrideEnabledContinuous - The system boots to the target specified in the BootSourceOverrideTarget property until this property is `Disabled`
 	BootSourceOverrideEnabledContinuous BootSourceOverrideEnabled = "Continuous"
 
+	//BootSourceOverrideModeLegacy - The system boots in non-UEFI boot mode to the boot source override target
 	BootSourceOverrideModeLegacy BootSourceOverrideMode = "Legacy"
-	BootSourceOverrideModeUEFI   BootSourceOverrideMode = "UEFI"
 
-	StopBootOnFaultNever    StopBootOnFault = "Never"
+	//BootSourceOverrideModeUEFI - The system boots in UEFI boot mode to the boot source override target
+	BootSourceOverrideModeUEFI BootSourceOverrideMode = "UEFI"
+
+	//StopBootOnFaultNever - The system performs any normal recovery actions during boot if a fault occurs
+	StopBootOnFaultNever StopBootOnFault = "Never"
+
+	//StopBootOnFaultAnyFault - The system should stop the boot on any fault
 	StopBootOnFaultAnyFault StopBootOnFault = "AnyFault"
 
+	//TrustedModuleRequiredToBootDisabled - No Trusted Module requirement to boot
 	TrustedModuleRequiredToBootDisabled TrustedModuleRequiredToBoot = "Disabled"
+
+	//TrustedModuleRequiredToBootRequired - A functional Trusted Module is required to boot
 	TrustedModuleRequiredToBootRequired TrustedModuleRequiredToBoot = "Required"
 
-	BootProgressTypesNone                                    BootProgressTypes = "None"
-	BootProgressTypesPrimaryProcessorInitializationStarted   BootProgressTypes = "PrimaryProcessorInitializationStarted"
-	BootProgressTypesBusInitializationStarted                BootProgressTypes = "BusInitializationStarted"
-	BootProgressTypesMemoryInitializationStarted             BootProgressTypes = "MemoryInitializationStarted"
+	//BootProgressTypesNone - The system is not booting
+	BootProgressTypesNone BootProgressTypes = "None"
+
+	//BootProgressTypesPrimaryProcessorInitializationStarted - The system has started initializing the primary processor
+	BootProgressTypesPrimaryProcessorInitializationStarted BootProgressTypes = "PrimaryProcessorInitializationStarted"
+
+	//BootProgressTypesBusInitializationStarted - The system has started initializing the buses
+	BootProgressTypesBusInitializationStarted BootProgressTypes = "BusInitializationStarted"
+
+	//BootProgressTypesMemoryInitializationStarted - The system has started initializing the memory
+	BootProgressTypesMemoryInitializationStarted BootProgressTypes = "MemoryInitializationStarted"
+
+	//BootProgressTypesSecondaryProcessorInitializationStarted - The system has started initializing the remaining processors.
 	BootProgressTypesSecondaryProcessorInitializationStarted BootProgressTypes = "SecondaryProcessorInitializationStarted"
-	BootProgressTypesPCIResourceConfigStarted                BootProgressTypes = "PCIResourceConfigStarted"
-	BootProgressTypesSystemHardwareInitializationComplete    BootProgressTypes = "SystemHardwareInitializationComplete"
-	BootProgressTypesSetupEntered                            BootProgressTypes = "SetupEntered"
-	BootProgressTypesOSBootStarted                           BootProgressTypes = "OSBootStarted"
-	BootProgressTypesOSRunning                               BootProgressTypes = "OSRunning"
-	BootProgressTypesOEM                                     BootProgressTypes = "OEM"
+
+	//BootProgressTypesPCIResourceConfigStarted - The system has started initializing the PCI resources
+	BootProgressTypesPCIResourceConfigStarted BootProgressTypes = "PCIResourceConfigStarted"
+
+	//BootProgressTypesSystemHardwareInitializationComplete - The system has completed initializing all hardware
+	BootProgressTypesSystemHardwareInitializationComplete BootProgressTypes = "SystemHardwareInitializationComplete"
+
+	//BootProgressTypesSetupEntered - The system has entered the setup utility
+	BootProgressTypesSetupEntered BootProgressTypes = "SetupEntered"
+
+	//BootProgressTypesOSBootStarted - The operating system has started booting
+	BootProgressTypesOSBootStarted BootProgressTypes = "OSBootStarted"
+
+	//BootProgressTypesOSRunning - The operating system is running
+	BootProgressTypesOSRunning BootProgressTypes = "OSRunning"
+
+	//BootProgressTypesOEM - A boot progress state in an OEM-defined format
+	BootProgressTypesOEM BootProgressTypes = "OEM"
 
 	//UseCases
+	//CompositionUseCaseResourceBlockCapable - This computer system supports being registered as a resource block
+	//in order for it to participate in composition requests
 	CompositionUseCaseResourceBlockCapable CompositionUseCase = "ResourceBlockCapable"
-	CompositionUseCaseExpandableSystem     CompositionUseCase = "ExpandableSystem"
 
-	SystemTypePhysical              SystemType = "Physical"
-	SystemTypeVirtual               SystemType = "Virtual"
-	SystemTypeOS                    SystemType = "OS"
+	//CompositionUseCaseExpandableSystem - This computer system supports expandable system composition and is associated with a resource block
+	CompositionUseCaseExpandableSystem CompositionUseCase = "ExpandableSystem"
+
+	//SystemTypePhysical -A computer system
+	SystemTypePhysical SystemType = "Physical"
+
+	//SystemTypeVirtual - A virtual machine instance running on this syste
+	SystemTypeVirtual SystemType = "Virtual"
+
+	//SystemTypeOS - An operating system instance
+	SystemTypeOS SystemType = "OS"
+
+	//SystemTypePhysicallyPartitioned - A hardware-based partition of a computer system
 	SystemTypePhysicallyPartitioned SystemType = "PhysicallyPartitioned"
-	SystemTypeVirtuallyPartitioned  SystemType = "VirtuallyPartitioned"
-	SystemTypeComposed              SystemType = "Composed"
-	SystemTypeDPU                   SystemType = "DPU"
 
+	//SystemTypeVirtuallyPartitioned - A virtual or software-based partition of a computer system
+	SystemTypeVirtuallyPartitioned SystemType = "VirtuallyPartitioned"
+
+	//SystemTypeComposed - A computer system constructed by binding resource blocks together
+	SystemTypeComposed SystemType = "Composed"
+
+	//SystemTypeDPU - A computer system that performs the functions of a data processing unit, such as a SmartNIC
+	SystemTypeDPU SystemType = "DPU"
+
+	//InterfaceTypeTPM1_2 - Trusted Platform Module (TPM) 1.2.
 	InterfaceTypeTPM1_2 InterfaceType = "TPM1_2"
+
+	//InterfaceTypeTPM2_0 - Trusted Platform Module (TPM) 2.0
 	InterfaceTypeTPM2_0 InterfaceType = "TPM2_0"
+
+	//InterfaceTypeTCM1_0 -Trusted Cryptography Module (TCM) 1.0
 	InterfaceTypeTCM1_0 InterfaceType = "TCM1_0"
 
-	InterfaceTypeSelectionNone           InterfaceTypeSelection = "None"
+	//InterfaceTypeSelectionNone - The TrustedModule does not support switching the InterfaceType
+	InterfaceTypeSelectionNone InterfaceTypeSelection = "None"
+
+	//InterfaceTypeSelectionFirmwareUpdate - The TrustedModule supports switching InterfaceType through a firmware update
 	InterfaceTypeSelectionFirmwareUpdate InterfaceTypeSelection = "FirmwareUpdate"
-	InterfaceTypeSelectionBiosSetting    InterfaceTypeSelection = "BiosSetting"
-	InterfaceTypeSelectionOemMethod      InterfaceTypeSelection = "OemMethod"
 
+	//InterfaceTypeSelectionBiosSetting - The TrustedModule supports switching InterfaceType through platform software,
+	// such as a BIOS configuration attribute
+	InterfaceTypeSelectionBiosSetting InterfaceTypeSelection = "BiosSetting"
+
+	//InterfaceTypeSelectionOemMethod - The TrustedModule supports switching InterfaceType through an OEM proprietary mechanism
+	InterfaceTypeSelectionOemMethod InterfaceTypeSelection = "OemMethod"
+
+	//MemoryMirroringSystem - The system supports DIMM mirroring at the system level
 	MemoryMirroringSystem MemoryMirroring = "System"
-	MemoryMirroringDIMM   MemoryMirroring = "DIMM"
+
+	//MemoryMirroringDIMM -The system supports DIMM mirroring at the DIMM level.  Individual DIMMs can be mirrored
+	MemoryMirroringDIMM MemoryMirroring = "DIMM"
+
+	//MemoryMirroringHybrid - The system supports a hybrid mirroring at the system and DIMM levels.
 	MemoryMirroringHybrid MemoryMirroring = "Hybrid"
-	MemoryMirroringNone   MemoryMirroring = "None"
 
-	WatchdogWarningActionsNone                WatchdogWarningActions = "None"
+	//MemoryMirroringNone - The system does not support DIMM mirroring
+	MemoryMirroringNone MemoryMirroring = "None"
+
+	//WatchdogWarningActionsNone - No action taken
+	WatchdogWarningActionsNone WatchdogWarningActions = "None"
+
+	//WatchdogWarningActionsDiagnosticInterrupt -Raise a (typically non-maskable) Diagnostic Interrupt
 	WatchdogWarningActionsDiagnosticInterrupt WatchdogWarningActions = "DiagnosticInterrupt"
-	WatchdogWarningActionsSMI                 WatchdogWarningActions = "SMI"
-	WatchdogWarningActionsMessagingInterrupt  WatchdogWarningActions = "MessagingInterrupt"
-	WatchdogWarningActionsSCI                 WatchdogWarningActions = "SCI"
-	WatchdogWarningActionsOEM                 WatchdogWarningActions = "OEM"
 
-	WatchdogTimeoutActionsNone        WatchdogTimeoutActions = "None"
+	//WatchdogWarningActionsSMI - Raise a Systems Management Interrupt (SMI)
+	WatchdogWarningActionsSMI WatchdogWarningActions = "SMI"
+
+	//WatchdogWarningActionsMessagingInterrupt - Raise a legacy IPMI messaging interrupt
+	WatchdogWarningActionsMessagingInterrupt WatchdogWarningActions = "MessagingInterrupt"
+
+	//WatchdogWarningActionsSCI - Raise an interrupt using the ACPI System Control Interrupt (SCI)
+	WatchdogWarningActionsSCI WatchdogWarningActions = "SCI"
+
+	//WatchdogWarningActionsOEM - Perform an OEM-defined action
+	WatchdogWarningActionsOEM WatchdogWarningActions = "OEM"
+
+	//WatchdogTimeoutActionsNone - No action taken
+	WatchdogTimeoutActionsNone WatchdogTimeoutActions = "None"
+
+	//	WatchdogTimeoutActionsResetSystem - Reset the system
 	WatchdogTimeoutActionsResetSystem WatchdogTimeoutActions = "ResetSystem"
-	WatchdogTimeoutActionsPowerCycle  WatchdogTimeoutActions = "PowerCycle"
-	WatchdogTimeoutActionsPowerDown   WatchdogTimeoutActions = "PowerDown"
-	WatchdogTimeoutActionsOEM         WatchdogTimeoutActions = "OEM"
 
-	PowerRestorePolicyTypesAlwaysOn  PowerRestorePolicyTypes = "AlwaysOn"
+	//WatchdogTimeoutActionsPowerCycle -Power cycle the system.
+	WatchdogTimeoutActionsPowerCycle WatchdogTimeoutActions = "PowerCycle"
+
+	//WatchdogTimeoutActionsPowerDown - Power down the system
+	WatchdogTimeoutActionsPowerDown WatchdogTimeoutActions = "PowerDown"
+
+	//WatchdogTimeoutActionsOEM - Perform an OEM-defined action
+	WatchdogTimeoutActionsOEM WatchdogTimeoutActions = "OEM"
+
+	//PowerRestorePolicyTypesAlwaysOn - The system always powers on when power is applied
+	PowerRestorePolicyTypesAlwaysOn PowerRestorePolicyTypes = "AlwaysOn"
+
+	//PowerRestorePolicyTypesAlwaysOff -The system always remains powered off when power is applied
 	PowerRestorePolicyTypesAlwaysOff PowerRestorePolicyTypes = "AlwaysOff"
+
+	//PowerRestorePolicyTypesLastState - The system returns to its last on or off power state when power is applied
 	PowerRestorePolicyTypesLastState PowerRestorePolicyTypes = "LastState"
 
-	PowerModeMaximumPerformance  PowerMode = "MaximumPerformance"
-	PowerModeBalancedPerformance PowerMode = "BalancedPerformance"
-	PowerModePowerSaving         PowerMode = "PowerSaving"
-	PowerModeStatic              PowerMode = "Static"
-	PowerModeOSControlled        PowerMode = "OSControlled"
-	PowerModeOEM                 PowerMode = "OEM"
+	//PowerModeMaximumPerformance - The system performs at the highest speeds possible
+	PowerModeMaximumPerformance PowerMode = "MaximumPerformance"
 
-	CachePolicyNone          CachePolicy = "None"
+	//PowerModeBalancedPerformance -The system performs at the highest speeds while utilization is high
+	//and performs at reduced speeds when the utilization is low
+	PowerModeBalancedPerformance PowerMode = "BalancedPerformance"
+
+	//PowerModePowerSaving -The system performs at reduced speeds to save power
+	PowerModePowerSaving PowerMode = "PowerSaving"
+
+	//PowerModeStatic - The system power mode is static
+	PowerModeStatic PowerMode = "Static"
+
+	//PowerModeOSControlled - The system power mode is controlled by the operating system
+	PowerModeOSControlled PowerMode = "OSControlled"
+
+	//PowerModeOEM - The system power mode is OEM-defined
+	PowerModeOEM PowerMode = "OEM"
+
+	//CachePolicyNone - The system does not cache KMIP data
+	CachePolicyNone CachePolicy = "None"
+
+	//CachePolicyAfterFirstUse - The system caches KMIP data after first use
+	//for the duration specified by the CacheDuration property
 	CachePolicyAfterFirstUse CachePolicy = "AfterFirstUse"
 
-	HostingRoleApplicationServer    HostingRole = "ApplicationServer"
-	HostingRoleStorageServer        HostingRole = "StorageServer"
-	HostingRoleSwitch               HostingRole = "Switch"
-	HostingRoleAppliance            HostingRole = "Appliance"
-	HostingRoleBareMetalServer      HostingRole = "BareMetalServer"
-	HostingRoleVirtualMachineServer HostingRole = "VirtualMachineServer"
-	HostingRoleContainerServer      HostingRole = "ContainerServer"
+	//HostingRoleApplicationServer - The system hosts functionality that supports general purpose applications
+	HostingRoleApplicationServer HostingRole = "ApplicationServer"
 
-	IndicatorLEDUnknown  IndicatorLED = "Unknown"
-	IndicatorLEDLit      IndicatorLED = "Lit"
+	//HostingRoleStorageServer - The system hosts functionality that supports the system acting as a storage server
+	HostingRoleStorageServer HostingRole = "StorageServer"
+
+	//HostingRoleSwitch - The system hosts functionality that supports the system acting as a switch
+	HostingRoleSwitch HostingRole = "Switch"
+
+	//HostingRoleAppliance - The system hosts functionality that supports the system acting as an appliance
+	HostingRoleAppliance HostingRole = "Appliance"
+
+	//HostingRoleBareMetalServer - The system hosts functionality that supports the system acting as a bare metal server
+	HostingRoleBareMetalServer HostingRole = "BareMetalServer"
+
+	//HostingRoleVirtualMachineServer -The system hosts functionality that supports the system acting as a virtual machine server
+	HostingRoleVirtualMachineServer HostingRole = "VirtualMachineServer"
+
+	//HostingRoleContainerServer - The system hosts functionality that supports the system acting as a container server
+	HostingRoleContainerServer HostingRole = "ContainerServer"
+
+	//IndicatorLEDUnknown - The state of the indicator LED cannot be determined
+	IndicatorLEDUnknown IndicatorLED = "Unknown"
+
+	//IndicatorLEDLit - The indicator LED is lit
+	IndicatorLEDLit IndicatorLED = "Lit"
+
+	//IndicatorLEDBlinking -The indicator LED is blinking
 	IndicatorLEDBlinking IndicatorLED = "Blinking"
-	IndicatorLEDOff      IndicatorLED = "Off"
+
+	//IndicatorLEDOff - The indicator LED is off
+	IndicatorLEDOff IndicatorLED = "Off"
 )
 
 // AddResourceBlock redfish structure
@@ -199,7 +390,7 @@ type ComputerSystem struct {
 	Oid                             string                 `json:"@odata.id"`
 	Otype                           string                 `json:"@odata.type"`
 	Oetag                           string                 `json:"@odata.etag,omitempty"`
-	ID                              string                 `json:"Id"`
+	ID                              string                 `json:"ID"`
 	Description                     string                 `json:"Description,omitempty"`
 	Name                            string                 `json:"Name"`
 	Actions                         *ComputerSystemActions `json:"Actions,omitempty"`
@@ -311,12 +502,12 @@ type LogEntry struct {
 	Otype                   string   `json:"@odata.type"`
 	Description             string   `json:"description,omitempty"`
 	Actions                 *Actions `json:"Actions,omitempty"`
-	ID                      string   `json:"Id"`
+	ID                      string   `json:"ID"`
 	AdditionalDataSizeBytes int      `json:"AdditionalDataSizeBytes,omitempty"`
 	AdditionalDataURI       string   `json:"AdditionalDataURI,omitempty"`
 	Created                 string   `json:"Created,omitempty"`
 	MessageArgs             string   `json:"MessageArgs,omitempty"`
-	MessageId               string   `json:"MessageId,omitempty"`
+	MessageID               string   `json:"MessageID,omitempty"`
 	Name                    string   `json:"Name"`
 	OEMDiagnosticDataType   string   `json:"OEMDiagnosticDataType,omitempty"`
 	Oem                     *Oem     `json:"Oem,omitempty"`
@@ -409,7 +600,7 @@ type Bios struct {
 	Oetag       string `json:"@odata.etag,omitempty"`
 	Otype       string `json:"@odata.type"`
 	Description string `json:"description,omitempty"`
-	ID          string `json:"Id"`
+	ID          string `json:"ID"`
 	Name        string `json:"Name"`
 	Oem         Oem    `json:"Oem,omitempty"`
 	/*The reference to the Attribute Registry that lists the metadata describing the
@@ -457,7 +648,7 @@ type EthernetInterfaces struct {
 	Oetag                  string              `json:"@odata.etag,omitempty"`
 	Otype                  string              `json:"@odata.type"`
 	Description            string              `json:"description,omitempty"`
-	ID                     string              `json:"Id"`
+	ID                     string              `json:"ID"`
 	Name                   string              `json:"Name"`
 	Oem                    Oem                 `json:"Oem,omitempty"`
 	AutoNeg                bool                `json:"AutoNeg,omitempty"`
@@ -588,7 +779,7 @@ type Memory struct {
 	Oetag                                   string                  `json:"@odata.etag,omitempty"`
 	Otype                                   string                  `json:"@odata.type"`
 	Description                             string                  `json:"description,omitempty"`
-	ID                                      string                  `json:"Id"`
+	ID                                      string                  `json:"ID"`
 	Name                                    string                  `json:"Name"`
 	Oem                                     Oem                     `json:"Oem,omitempty"`
 	AllocationAlignmentMiB                  int                     `json:"AllocationAlignmentMiB,omitempty"`
@@ -692,7 +883,7 @@ type Region struct {
 	OffsetMiB            int    `json:"OffsetMiB"`
 	PassphraseEnabled    bool   `json:"PassphraseEnabled"`
 	PassphraseState      bool   `json:"PassphraseState"`
-	RegionID             string `json:"RegionId"`
+	RegionID             string `json:"RegionID"`
 	SizeMiB              int    `json:"SizeMiB"`
 }
 
@@ -713,7 +904,7 @@ type MemoryDomains struct {
 	Oetag                     string                   `json:"@odata.etag,omitempty"`
 	Otype                     string                   `json:"@odata.type,omitempty"`
 	Description               string                   `json:"description,omitempty"`
-	ID                        string                   `json:"Id,omitempty"`
+	ID                        string                   `json:"ID,omitempty"`
 	Name                      string                   `json:"Name,omitempty"`
 	Oem                       Oem                      `json:"Oem,omitempty"`
 	AllowsBlockProvisioning   bool                     `json:"AllowsBlockProvisioning,omitempty"`
@@ -775,7 +966,7 @@ type NetworkInterfaces struct {
 	Oetag                  string                 `json:"@odata.etag,omitempty"`
 	Otype                  string                 `json:"@odata.type,omitempty"`
 	Description            string                 `json:"description,omitempty"`
-	ID                     string                 `json:"Id,omitempty"`
+	ID                     string                 `json:"ID,omitempty"`
 	Name                   string                 `json:"Name,omitempty"`
 	Oem                    Oem                    `json:"Oem,omitempty"`
 	Links                  Links                  `json:"Links,omitempty"`
@@ -810,7 +1001,7 @@ type PCIeDevice struct {
 	Oetag              string         `json:"@odata.etag,omitempty"`
 	Otype              string         `json:"@odata.type"`
 	Description        string         `json:"description,omitempty"`
-	ID                 string         `json:"Id"`
+	ID                 string         `json:"ID"`
 	Name               string         `json:"Name"`
 	Oem                Oem            `json:"Oem,omitempty"`
 	Assembly           *Assembly      `json:"Assembly,omitempty"`
@@ -877,20 +1068,20 @@ type PCIeFunction struct {
 	Oetag             string      `json:"@odata.etag,omitempty"`
 	Otype             string      `json:"@odata.type"`
 	Description       string      `json:"description,omitempty"`
-	ID                string      `json:"Id"`
+	ID                string      `json:"ID"`
 	Name              string      `json:"Name"`
 	Oem               Oem         `json:"Oem,omitempty"`
 	ClassCode         string      `json:"ClassCode,omitempty"`
 	DeviceClass       string      `json:"DeviceClass,omitempty"` //enum
-	DeviceID          string      `json:"DeviceId,omitempty"`
-	FunctionID        int         `json:"FunctionId,omitempty"`
+	DeviceID          string      `json:"DeviceID,omitempty"`
+	FunctionID        int         `json:"FunctionID,omitempty"`
 	FunctionType      string      `json:"FunctionType,omitempty"` //enum
 	Links             *Links      `json:"Links,omitempty"`
-	RevisionID        string      `json:"RevisionId,omitempty"`
+	RevisionID        string      `json:"RevisionID,omitempty"`
 	Status            *Status     `json:"Status,omitempty"`
-	SubsystemID       string      `json:"SubsystemId,omitempty"`
-	SubsystemVendorID string      `json:"SubsystemVendorId,omitempty"`
-	VendorID          string      `json:"VendorId,omitempty"`
+	SubsystemID       string      `json:"SubsystemID,omitempty"`
+	SubsystemVendorID string      `json:"SubsystemVendorID,omitempty"`
+	VendorID          string      `json:"VendorID,omitempty"`
 	Actions           *OemActions `json:"Actions,omitempty"`
 	Enabled           bool        `json:"Enabled,omitempty"`
 }
@@ -909,7 +1100,7 @@ type Processors struct {
 	Oetag                      string                      `json:"@odata.etag,omitempty"`
 	Otype                      string                      `json:"@odata.type"`
 	Description                string                      `json:"description,omitempty"`
-	ID                         string                      `json:"Id"`
+	ID                         string                      `json:"ID"`
 	Name                       string                      `json:"Name"`
 	Oem                        Oem                         `json:"Oem,omitempty"`
 	AccelerationFunctions      AccelerationFunctions       `json:"AccelerationFunctions,omitempty"`
@@ -924,7 +1115,7 @@ type Processors struct {
 	Metrics                    Metrics                     `json:"Metrics,omitempty"`
 	Model                      string                      `json:"Model,omitempty"`
 	ProcessorArchitecture      string                      `json:"ProcessorArchitecture,omitempty"` //enum
-	ProcessorID                ProcessorID                 `json:"ProcessorId,omitempty"`
+	ProcessorID                ProcessorID                 `json:"ProcessorID,omitempty"`
 	ProcessorMemory            []ProcessorMemory           `json:"ProcessorMemory,omitempty"`
 	ProcessorType              string                      `json:"ProcessorType,omitempty"` //enum
 	Socket                     string                      `json:"Socket,omitempty"`
@@ -985,7 +1176,7 @@ type AccelerationFunctions struct {
 // FPGA in place object
 type FPGA struct {
 	ExternalInterfaces   []HostInterface       `json:"ExternalInterfaces"`
-	FirmwareID           string                `json:"FirmwareId"`
+	FirmwareID           string                `json:"FirmwareID"`
 	FirmwareManufacturer string                `json:"FirmwareManufacturer"`
 	FirmwareVersion      string                `json:"FirmwareVersion"`
 	FpgaType             string                `json:"FpgaType"` //enum
@@ -1015,7 +1206,7 @@ type Ethernet struct {
 type ReconfigurationSlot struct {
 	AccelerationFunction AccelerationFunction `json:"AccelerationFunction"`
 	ProgrammableFromHost bool                 `json:"ProgrammableFromHost"`
-	SlotID               string               `json:"SlotId"`
+	SlotID               string               `json:"SlotID"`
 	UUID                 string               `json:"UUID"`
 }
 
@@ -1071,7 +1262,7 @@ type SecureBoot struct {
 	Oetag                 string      `json:"@odata.etag,omitempty"`
 	Otype                 string      `json:"@odata.type"`
 	Description           string      `json:"description,omitempty"`
-	ID                    string      `json:"Id"`
+	ID                    string      `json:"ID"`
 	Name                  string      `json:"Name"`
 	Oem                   Oem         `json:"Oem,omitempty"`
 	SecureBootCurrentBoot string      `json:"SecureBootCurrentBoot,omitempty"`
@@ -1107,7 +1298,7 @@ type SecureBootDatabase struct {
 	Certificates string `json:"Certificates,omitempty"`
 	DatabaseId   string `json:"DatabaseId,omitempty"`
 	Description  string `json:"Description,omitempty"`
-	Id           string `json:"Id"`
+	Id           string `json:"ID"`
 	Name         string `json:"Name"`
 	Oem          string `json:"Oem,omitempty"`
 	Signatures   string `json:"Signatures,omitempty"`
@@ -1120,7 +1311,7 @@ type SimpleStorage struct {
 	Oetag          string      `json:"@odata.etag,omitempty"`
 	Otype          string      `json:"@odata.type"`
 	Description    string      `json:"description,omitempty"`
-	ID             string      `json:"Id"`
+	ID             string      `json:"ID"`
 	Name           string      `json:"Name"`
 	Oem            Oem         `json:"Oem,omitempty"`
 	Devices        []Device    `json:"Devices,omitempty"`
@@ -1198,7 +1389,7 @@ type Metrics struct {
 	FrequencyRatio               float32            `json:"FrequencyRatio,omitempty"`
 	KernelPercent                float32            `json:"KernelPercent,omitempty"`
 	LocalMemoryBandwidthBytes    int                `json:"LocalMemoryBandwidthBytes,omitempty"`
-	Id                           string             `json:"Id"`
+	ID                           string             `json:"ID"`
 	Name                         string             `json:"Name"`
 	Oem                          Oem                `json:"Oem,omitempty"`
 	OperatingSpeedMHz            int                `json:"OperatingSpeedMHz,omitempty"`
