@@ -14,88 +14,202 @@
 
 package model
 
+// RestrictedPrivileges - The set of restricted Redfish privileges
 type RestrictedPrivileges string
 
+// SupportedAccountTypes - The account types supported by the service
 type SupportedAccountTypes string
 
+// LocalAccountAuth - An indication of how the service uses the accounts collection within
+// this account service as part of authentication
 type LocalAccountAuth string
 
+// AuthenticationTypes - The type of authentication used to connect to the external account provider
 type AuthenticationTypes string
 
+// CertificateMappingAttribute - The client certificate attribute to map to a user
 type CertificateMappingAttribute string
 
+// AccountProviderType - The type of external account provider to which this service connects
 type AccountProviderType string
 
+// Mode
 type Mode string
 
+// PrivilegeType - The set of restricted Redfish privileges
 type PrivilegeType string
 
+// PasswordExchangeProtocols- Indicates the allowed TACACS+ password exchange protocols.
 type PasswordExchangeProtocols string
 
 const (
-	RestrictedPrivilegesLogin                              RestrictedPrivileges = "Login"
-	RestrictedPrivilegesConfigureManager                   RestrictedPrivileges = "ConfigureManager"
-	RestrictedPrivilegesConfigureUsers                     RestrictedPrivileges = "ConfigureUsers"
-	RestrictedPrivilegesConfigureSelf                      RestrictedPrivileges = "ConfigureSelf"
-	RestrictedPrivilegesConfigureComponents                RestrictedPrivileges = "ConfigureComponents"
-	RestrictedPrivilegesNoAuth                             RestrictedPrivileges = "NoAuth"
+	// RestrictedPrivilegesLogin - PrivilegeType
+	RestrictedPrivilegesLogin RestrictedPrivileges = "Login"
+
+	// RestrictedPrivilegesConfigureManager - PrivilegeType
+	RestrictedPrivilegesConfigureManager RestrictedPrivileges = "ConfigureManager"
+
+	// RestrictedPrivilegesConfigureUsers - PrivilegeType
+	RestrictedPrivilegesConfigureUsers RestrictedPrivileges = "ConfigureUsers"
+
+	//RestrictedPrivilegesConfigureSelf - PrivilegeType
+	RestrictedPrivilegesConfigureSelf RestrictedPrivileges = "ConfigureSelf"
+
+	//RestrictedPrivilegesConfigureComponents - PrivilegeType
+	RestrictedPrivilegesConfigureComponents RestrictedPrivileges = "ConfigureComponents"
+
+	//RestrictedPrivilegesNoAuth - PrivilegeType
+	RestrictedPrivilegesNoAuth RestrictedPrivileges = "NoAuth"
+
+	//RestrictedPrivilegesConfigureCompositionInfrastructure - PrivilegeType
 	RestrictedPrivilegesConfigureCompositionInfrastructure RestrictedPrivileges = "ConfigureCompositionInfrastructure"
-	RestrictedPrivilegesAdministrateSystems                RestrictedPrivileges = "AdministrateSystems"
-	RestrictedPrivilegesOperateSystems                     RestrictedPrivileges = "OperateSystems"
-	RestrictedPrivilegesAdministrateStorage                RestrictedPrivileges = "AdministrateStorage"
-	RestrictedPrivilegesOperateStorageBackup               RestrictedPrivileges = "OperateStorageBackup"
 
-	SupportedAccountTypesRedfish        SupportedAccountTypes = "Redfish"
-	SupportedAccountTypesSNMP           SupportedAccountTypes = "SNMP"
-	SupportedAccountTypesOEM            SupportedAccountTypes = "OEM"
-	SupportedAccountTypeHostConsole     SupportedAccountTypes = "HostConsole"
+	//RestrictedPrivilegesAdministrateSystems - PrivilegeType
+	RestrictedPrivilegesAdministrateSystems RestrictedPrivileges = "AdministrateSystems"
+
+	//RestrictedPrivilegesOperateSystems - PrivilegeType
+	RestrictedPrivilegesOperateSystems RestrictedPrivileges = "OperateSystems"
+
+	//RestrictedPrivilegesAdministrateStorage - PrivilegeType
+	RestrictedPrivilegesAdministrateStorage RestrictedPrivileges = "AdministrateStorage"
+
+	//RestrictedPrivilegesOperateStorageBackup - PrivilegeType
+	RestrictedPrivilegesOperateStorageBackup RestrictedPrivileges = "OperateStorageBackup"
+
+	//SupportedAccountTypesRedfish - AccountTypes
+	SupportedAccountTypesRedfish SupportedAccountTypes = "Redfish"
+
+	//SupportedAccountTypesSNMP - AccountTypes
+	SupportedAccountTypesSNMP SupportedAccountTypes = "SNMP"
+
+	//SupportedAccountTypesOEM - AccountTypes
+	SupportedAccountTypesOEM SupportedAccountTypes = "OEM"
+
+	//SupportedAccountTypeHostConsole - AccountTypes
+	SupportedAccountTypeHostConsole SupportedAccountTypes = "HostConsole"
+
+	//SupportedAccountTypesManagerConsole - AccountTypes
 	SupportedAccountTypesManagerConsole SupportedAccountTypes = "ManagerConsole"
-	SupportedAccountTypesIPMI           SupportedAccountTypes = "IPMI"
-	SupportedAccountTypesKVMIP          SupportedAccountTypes = "KVMIP"
-	SupportedAccountTypesVirtualMedia   SupportedAccountTypes = "VirtualMedia"
-	SupportedAccountTypesWebUI          SupportedAccountTypes = "WebUI"
 
-	LocalAccountAuthEnabled    LocalAccountAuth = "Enabled"
-	LocalAccountAuthDisabled   LocalAccountAuth = "Disabled"
-	LocalAccountAuthFallback   LocalAccountAuth = "Fallback"
+	//SupportedAccountTypesIPMI  - AccountTypes
+	SupportedAccountTypesIPMI SupportedAccountTypes = "IPMI"
+
+	//SupportedAccountTypesKVMIP  - AccountTypes
+	SupportedAccountTypesKVMIP SupportedAccountTypes = "KVMIP"
+
+	//SupportedAccountTypesVirtualMedia - AccountTypes
+	SupportedAccountTypesVirtualMedia SupportedAccountTypes = "VirtualMedia"
+
+	//SupportedAccountTypesWebUI - AccountTypes
+	SupportedAccountTypesWebUI SupportedAccountTypes = "WebUI"
+
+	//LocalAccountAuthEnabled - The service never authenticates users based on the account service-defined accounts collection
+	LocalAccountAuthEnabled LocalAccountAuth = "Enabled"
+
+	//LocalAccountAuthDisabled -The service authenticates users based on the account service-defined accounts collection.
+	LocalAccountAuthDisabled LocalAccountAuth = "Disabled"
+
+	//LocalAccountAuthFallback - The service authenticates users based on the account service-defined accounts collection
+	//only if any external account providers are currently unreachable
+	LocalAccountAuthFallback LocalAccountAuth = "Fallback"
+
+	//LocalAccountAuthLocalFirst - The service first authenticates users based on the account service-defined accounts collection.
+	//  If authentication fails, the service authenticates by using external account providers
 	LocalAccountAuthLocalFirst LocalAccountAuth = "LocalFirst"
 
-	AuthenticationTypesToken               AuthenticationTypes = "Token"
-	AuthenticationTypesKerberosKeytab      AuthenticationTypes = "KerberosKeytab"
-	AuthenticationTypesUsernameAndPassword AuthenticationTypes = "UsernameAndPassword"
-	AuthenticationTypesOEM                 AuthenticationTypes = "OEM"
+	//AuthenticationTypesToken - An opaque authentication token
+	AuthenticationTypesToken AuthenticationTypes = "Token"
 
-	CertificateMappingAttributeWhole             CertificateMappingAttribute = "Whole"
-	CertificateMappingAttributeCommonName        CertificateMappingAttribute = "CommonName"
+	//AuthenticationTypesKerberosKeytab - A Kerberos keytab
+	AuthenticationTypesKerberosKeytab AuthenticationTypes = "KerberosKeytab"
+
+	//AuthenticationTypesUsernameAndPassword - A user name and password combination
+	AuthenticationTypesUsernameAndPassword AuthenticationTypes = "UsernameAndPassword"
+
+	//AuthenticationTypesOEM - An OEM-specific authentication mechanism.
+	AuthenticationTypesOEM AuthenticationTypes = "OEM"
+
+	//CertificateMappingAttributeWhole -Match the whole certificate
+	CertificateMappingAttributeWhole CertificateMappingAttribute = "Whole"
+
+	//CertificateMappingAttributeCommonName - Match the Common Name (CN) field in the provided certificate to the username
+	CertificateMappingAttributeCommonName CertificateMappingAttribute = "CommonName"
+
+	//CertificateMappingAttributeUserPrincipalName - Match the User Principal Name (UPN) field in the provided certificate to the username
 	CertificateMappingAttributeUserPrincipalName CertificateMappingAttribute = "UserPrincipalName"
 
-	AccountProviderTypeRedfishService         AccountProviderType = "RedfishService"
+	//AccountProviderTypeRedfishService - An external Redfish service.
+	AccountProviderTypeRedfishService AccountProviderType = "RedfishService"
+
+	//AccountProviderTypeActiveDirectoryService- An external Active Directory service
 	AccountProviderTypeActiveDirectoryService AccountProviderType = "ActiveDirectoryService"
-	AccountProviderTypeLDAPService            AccountProviderType = "LDAPService"
-	AccountProviderTypeOEM                    AccountProviderType = "OEM"
-	AccountProviderTypeTACACSplus             AccountProviderType = "TACACSplus"
-	AccountProviderTypeOAuth2                 AccountProviderType = "OAuth2"
 
+	//AccountProviderTypeLDAPService -A generic external LDAP service
+	AccountProviderTypeLDAPService AccountProviderType = "LDAPService"
+
+	//AccountProviderTypeOEM-An OEM-specific external authentication or directory service
+	AccountProviderTypeOEM AccountProviderType = "OEM"
+
+	//AccountProviderTypeTACACSplus- "An external TACACS+ service
+	AccountProviderTypeTACACSplus AccountProviderType = "TACACSplus"
+
+	//AccountProviderTypeOAuth2-An external OAuth 2.0 service
+	AccountProviderTypeOAuth2 AccountProviderType = "OAuth2"
+
+	//ModeDiscovery - OAuth 2.0 service information for token validation is downloaded by the service
 	ModeDiscovery Mode = "Discovery"
-	ModeOffline   Mode = "Offline"
 
-	PasswordExchangeProtocolsASCII    PasswordExchangeProtocols = "ASCII"
-	PasswordExchangeProtocolsPAP      PasswordExchangeProtocols = "PAP"
-	PasswordExchangeProtocolsCHAP     PasswordExchangeProtocols = "CHAP"
+	//ModeOffline - OAuth 2.0 service information for token validation is configured by a client
+	ModeOffline Mode = "Offline"
+
+	//PasswordExchangeProtocolsASCII - The ASCII Login method
+	PasswordExchangeProtocolsASCII PasswordExchangeProtocols = "ASCII"
+
+	//PasswordExchangeProtocolsPAP - The PAP Login method
+	PasswordExchangeProtocolsPAP PasswordExchangeProtocols = "PAP"
+
+	//PasswordExchangeProtocolsCHAP - The CHAP Login method
+	PasswordExchangeProtocolsCHAP PasswordExchangeProtocols = "CHAP"
+
+	//PasswordExchangeProtocolsMSCHAPv1 - The MS-CHAP v1 Login method
 	PasswordExchangeProtocolsMSCHAPv1 PasswordExchangeProtocols = "MSCHAPv1"
+
+	//PasswordExchangeProtocolsMSCHAPv2 - The MS-CHAP v2 Login method
 	PasswordExchangeProtocolsMSCHAPv2 PasswordExchangeProtocols = "MSCHAPv2"
 
-	PrivilegeTypeLogin                              PrivilegeType = "Login"
-	PrivilegeTypeConfigureManager                   PrivilegeType = "ConfigureManager"
-	PrivilegeTypeConfigureUsers                     PrivilegeType = "ConfigureUsers"
-	PrivilegeTypeConfigureSelf                      PrivilegeType = "ConfigureSelf"
-	PrivilegeTypeConfigureComponents                PrivilegeType = "ConfigureComponents"
-	PrivilegeTypeNoAuth                             PrivilegeType = "NoAuth"
+	//PrivilegeTypeLogin -Can log in to the service and read Resources
+	PrivilegeTypeLogin PrivilegeType = "Login"
+
+	//PrivilegeTypeConfigureManager -Can configure managers
+	PrivilegeTypeConfigureManager PrivilegeType = "ConfigureManager"
+
+	//PrivilegeTypeConfigureUsers -Can configure users and their accounts
+	PrivilegeTypeConfigureUsers PrivilegeType = "ConfigureUsers"
+
+	//PrivilegeTypeConfigureSelf -Can change the password for the current user account and log out of their own sessions
+	PrivilegeTypeConfigureSelf PrivilegeType = "ConfigureSelf"
+
+	//PrivilegeTypeConfigureComponents - Can configure components that this service manages
+	PrivilegeTypeConfigureComponents PrivilegeType = "ConfigureComponents"
+
+	//PrivilegeTypeNoAuth -Authentication is not required
+	PrivilegeTypeNoAuth PrivilegeType = "NoAuth"
+
+	//PrivilegeTypeConfigureCompositionInfrastructure - Can view and configure composition service resources
 	PrivilegeTypeConfigureCompositionInfrastructure PrivilegeType = "ConfigureCompositionInfrastructure"
-	PrivilegeTypeAdministrateSystems                PrivilegeType = "AdministrateSystems"
-	PrivilegeTypeOperateSystems                     PrivilegeType = "OperateSystems"
-	PrivilegeTypeAdministrateStorage                PrivilegeType = "AdministrateStorage"
-	PrivilegeTypeOperateStorageBackup               PrivilegeType = "OperateStorageBackup"
+
+	//PrivilegeTypeAdministrateSystems - Administrator for systems found in the systems collection.  Able to manage boot configuration, keys, and certificates for systems
+	PrivilegeTypeAdministrateSystems PrivilegeType = "AdministrateSystems"
+
+	//PrivilegeTypeOperateSystems -Operator for systems found in the systems collection.  Able to perform resets and configure interfaces
+	PrivilegeTypeOperateSystems PrivilegeType = "OperateSystems"
+
+	//PrivilegeTypeAdministrateStorage - Administrator for storage subsystems and storage systems found in the storage collection and storage system collection respectively
+	PrivilegeTypeAdministrateStorage PrivilegeType = "AdministrateStorage"
+
+	//PrivilegeTypeOperateStorageBackup -Operator for storage backup functionality for storage subsystems and storage systems found
+	//in the storage collection and storage system collection respectively
+	PrivilegeTypeOperateStorageBackup PrivilegeType = "OperateStorageBackup"
 )
 
 // AccountService the supported properties,
@@ -105,8 +219,7 @@ const (
 // lockout.  Properties and actions in this service specify general behavior that should be followed
 // for typical accounts, however implementations may override these behaviors for special accounts
 // or situations to avoid denial of service or other deadlock situations.
-
-//Reference  :AccountService.v1_12_0.json
+// Reference  :AccountService.v1_12_0.json
 type AccountService struct {
 	ODataContext                       string                              `json:"@odata.context,omitempty"`
 	ODataEtag                          string                              `json:"@odata.etag,omitempty"`
@@ -253,7 +366,7 @@ type OAuth2Service struct {
 // This type shall contain settings for RSA SecurID multi-factor authentication
 type SecurID struct {
 	Certificates    *Certificates `json:"Certificates,omitempty"`
-	ClientId        string        `json:"ClientId,omitempty"`
+	ClientID        string        `json:"ClientID,omitempty"`
 	ClientSecret    string        `json:"ClientSecret,omitempty"`
 	ClientSecretSet bool          `json:"ClientSecretSet,omitempty"`
 	Enabled         bool          `json:"Enabled,omitempty"`
@@ -280,6 +393,8 @@ type TACACSplusService struct {
 	PasswordExchangeProtocols string `json:"PasswordExchangeProtocols,omitempty"` //enum
 	PrivilegeLevelArgument    string `json:"PrivilegeLevelArgument,omitempty"`
 }
+
+// AdditionalExternalAccountProviders redfish structure
 type AdditionalExternalAccountProviders struct {
 	ODataContext         string   `json:"@odata.context,omitempty"`
 	ODataEtag            string   `json:"@odata.etag,omitempty"`
@@ -292,6 +407,8 @@ type AdditionalExternalAccountProviders struct {
 	Name                 string   `json:"Name"`
 	Oem                  *Oem     `json:"Oem,omitempty"`
 }
+
+// PrivilegeMap redfish structure
 type PrivilegeMap struct {
 	ODataType         string      `json:"@odata.type"`
 	Actions           *OemActions `json:"Actions,omitempty"`
@@ -304,17 +421,22 @@ type PrivilegeMap struct {
 	PrivilegesUsed    []string    `json:"PrivilegesUsed,omitempty"` //enum
 }
 
+// Mapping redfish structure
 type Mapping struct {
-	Entity               string              `json:"Entity,omitempty"`
-	OperationMap         OperationMap        `json:"OperationMap,omitempty"`
-	PropertyOverrides    Target_PrivilegeMap `json:"PropertyOverrides,omitempty"`
-	ResourceURIOverrides Target_PrivilegeMap `json:"ResourceURIOverrides,omitempty"`
-	SubordinateOverrides Target_PrivilegeMap `json:"SubordinateOverrides,omitempty"`
+	Entity               string             `json:"Entity,omitempty"`
+	OperationMap         OperationMap       `json:"OperationMap,omitempty"`
+	PropertyOverrides    TargetPrivilegeMap `json:"PropertyOverrides,omitempty"`
+	ResourceURIOverrides TargetPrivilegeMap `json:"ResourceURIOverrides,omitempty"`
+	SubordinateOverrides TargetPrivilegeMap `json:"SubordinateOverrides,omitempty"`
 }
-type Target_PrivilegeMap struct {
+
+// TargetPrivilegeMap redfish structure
+type TargetPrivilegeMap struct {
 	OperationMap OperationMap `json:"OperationMap,omitempty"`
 	Targets      []string     `json:"Targets,omitempty"`
 }
+
+// OperationPrivilege redfish structure
 type OperationMap struct {
 	DELETE OperationPrivilege `json:"DELETE,omitempty"`
 	GET    OperationPrivilege `json:"GET,omitempty"`
@@ -323,6 +445,8 @@ type OperationMap struct {
 	PUT    OperationPrivilege `json:"PUT,omitempty"`
 	PATCH  OperationPrivilege `json:"PATCH,omitempty"`
 }
+
+// OperationPrivilege redfish structure
 type OperationPrivilege struct {
 	Privilege []string `json:"Privilege,omitempty"`
 }
@@ -350,7 +474,7 @@ type ManagerAccount struct {
 	Keys                   *Collection  `json:"Keys,omitempty"`
 }
 
-//AccountLinks struct definition
+// AccountLinks struct definition
 type AccountLinks struct {
 	Role Link `json:"Role"`
 }
