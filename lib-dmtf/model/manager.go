@@ -14,7 +14,7 @@
 
 package model
 
-// GraphicalConnectTypesSupported- ConnectTypesSupported
+// GraphicalConnectTypesSupported - ConnectTypesSupported
 type GraphicalConnectTypesSupported string
 
 const (
