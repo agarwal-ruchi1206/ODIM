@@ -19,7 +19,7 @@ import (
 	"github.com/ODIM-Project/ODIM/lib-utilities/errors"
 )
 
-// BootSource- AliasBootOrder, BootSourceOverrideTarget
+// BootSource - AliasBootOrder, BootSourceOverrideTarget
 // Ordered array of boot source aliases representing the persistent
 // boot order associated with this computer system
 type BootSource string
@@ -27,7 +27,7 @@ type BootSource string
 // AutomaticRetryConfig - The configuration of how the system retries booting automatically
 type AutomaticRetryConfig string
 
-// BootOrderProperty - The name of the boot order property that the system uses for the persistent boot order
+// BootOrderTypes - The name of the boot order property that the system uses for the persistent boot order
 type BootOrderTypes string
 
 // BootSourceOverrideEnabled - The state of the boot source override feature
@@ -78,7 +78,7 @@ type HostingRole string
 // IndicatorLED - The state of the indicator LED, which identifies the system
 type IndicatorLED string
 
-// LastState - The last boot progress state
+// BootProgressTypes - The last boot progress state
 type BootProgressTypes string
 
 const (
@@ -100,10 +100,11 @@ const (
 
 	//BootSourceHdd - Boot from a hard drive
 	BootSourceHdd BootSource = "Hdd"
-	// BootSourceBiosSetup- Boot to the BIOS setup utility
+
+	// BootSourceBiosSetup - Boot to the BIOS setup utility
 	BootSourceBiosSetup BootSource = "BiosSetup"
 
-	//BootSourceUtilities
+	//BootSourceUtilities -
 	BootSourceUtilities BootSource = "Utilities"
 
 	//BootSourceDiags - Boot to the manufacturer's diagnostics program
@@ -118,8 +119,8 @@ const (
 	//BootSourceSDCard - Boot from an SD card
 	BootSourceSDCard BootSource = "SDCard"
 
-	//BootSourceUefiHttp - Boot from a UEFI HTTP network location
-	BootSourceUefiHttp BootSource = "UefiHttp"
+	//BootSourceUefiHTTP - Boot from a UEFI HTTP network location
+	BootSourceUefiHTTP BootSource = "UefiHttp"
 
 	//BootSourceRemoteDrive - Boot from a remote drive, such as an iSCSI target
 	BootSourceRemoteDrive BootSource = "RemoteDrive"
@@ -130,13 +131,13 @@ const (
 	//BootSourceRecovery - Boot to a system-designated recovery process or image
 	BootSourceRecovery BootSource = "Recovery"
 
-	//AutomaticRetryConfigDisabled- Disable automatic retrying of booting
+	//AutomaticRetryConfigDisabled - Disable automatic retrying of booting
 	AutomaticRetryConfigDisabled AutomaticRetryConfig = "Disabled"
 
 	//AutomaticRetryConfigRetryAttempts - Always automatically retry booting
 	AutomaticRetryConfigRetryAttempts AutomaticRetryConfig = "RetryAttempts"
 
-	//AutomaticRetryConfigRetryAlways- Automatic retrying of booting is based on a specified retry count
+	//AutomaticRetryConfigRetryAlways - Automatic retrying of booting is based on a specified retry count
 	AutomaticRetryConfigRetryAlways AutomaticRetryConfig = "RetryAlways"
 
 	//BootOrderTypesBootOrder - The system uses the BootOrder property to specify the persistent boot order
@@ -205,9 +206,9 @@ const (
 	//BootProgressTypesOEM - A boot progress state in an OEM-defined format
 	BootProgressTypesOEM BootProgressTypes = "OEM"
 
-	//UseCases
 	//CompositionUseCaseResourceBlockCapable - This computer system supports being registered as a resource block
 	//in order for it to participate in composition requests
+	//UseCases
 	CompositionUseCaseResourceBlockCapable CompositionUseCase = "ResourceBlockCapable"
 
 	//CompositionUseCaseExpandableSystem - This computer system supports expandable system composition and is associated with a resource block
@@ -289,7 +290,7 @@ const (
 	//WatchdogTimeoutActionsNone - No action taken
 	WatchdogTimeoutActionsNone WatchdogTimeoutActions = "None"
 
-	//	WatchdogTimeoutActionsResetSystem - Reset the system
+	//WatchdogTimeoutActionsResetSystem - Reset the system
 	WatchdogTimeoutActionsResetSystem WatchdogTimeoutActions = "ResetSystem"
 
 	//WatchdogTimeoutActionsPowerCycle -Power cycle the system.
@@ -383,7 +384,7 @@ type AddResourceBlock struct {
 // or items within the data plane, such as memory, CPU, and other devices that it can access.
 //
 //	Details of those resources or subsystems are also linked through this resource
-
+//
 // Reference :ComputerSystem.v1_20_0.json
 type ComputerSystem struct {
 	Ocontext                        string                 `json:"@odata.context,omitempty"`
@@ -458,6 +459,7 @@ type ComputerSystem struct {
 	Composition                     *Composition           `json:"Composition,omitempty"`
 }
 
+// ComputerSystemActions redfish structure
 type ComputerSystemActions struct {
 	AddResourceBlock    *AddResourceBlock    `json:"AddResourceBlock,omitempty"`
 	RemoveResourceBlock *RemoveResourceBlock `json:"RemoveResourceBlock,omitempty"`
@@ -495,6 +497,7 @@ type SetDefaultBootOrder struct {
 	Title  string `json:"Title,omitempty"`
 }
 
+// LogEntry redfish structure
 type LogEntry struct {
 	Oid                     string   `json:"@odata.id"`
 	Ocontext                string   `json:"@odata.context,omitempty"`
@@ -559,7 +562,6 @@ type BootProgress struct {
 // KeyManagement redfish structure
 // The key management settings of a computer system
 // This object shall contain the key management settings of a computer system
-
 type KeyManagement struct {
 	KMIPCertificates *KMIPCertificates `json:"KMIPCertificates,omitempty"`
 	KMIPServers      []*KMIPServers    `json:"KMIPServers,omitempty"`
@@ -1242,9 +1244,10 @@ type SubProcessors struct {
 // ProcessorSummary redfish structure
 // The central processors of the system in general detail
 // This type shall contain properties that describe the central processors for a system.
-//  Processors described by this type shall be limited to the processors that execute system code,
+//
+//	Processors described by this type shall be limited to the processors that execute system code,
+//
 // and shall not include processors used for offload functionality
-
 type ProcessorSummary struct {
 	CoreCount             int     `json:"CoreCount,omitempty"`
 	Count                 int     `json:"Count"`
@@ -1296,9 +1299,9 @@ type SecureBootDatabase struct {
 	Otype        string `json:"@odata.type"`
 	Actions      string `json:"Actions,omitempty"`
 	Certificates string `json:"Certificates,omitempty"`
-	DatabaseId   string `json:"DatabaseId,omitempty"`
+	DatabaseID   string `json:"DatabaseID,omitempty"`
 	Description  string `json:"Description,omitempty"`
-	Id           string `json:"ID"`
+	ID           string `json:"ID"`
 	Name         string `json:"Name"`
 	Oem          string `json:"Oem,omitempty"`
 	Signatures   string `json:"Signatures,omitempty"`
@@ -1403,6 +1406,7 @@ type Metrics struct {
 	UserPercent                  float32            `json:"UserPercent,omitempty"`
 }
 
+// CacheMetrics redfish structure
 type CacheMetrics struct {
 	CacheMiss                 float32 `json:"CacheMiss,omitempty"`
 	CacheMissesPerInstruction float32 `json:"CacheMissesPerInstruction,omitempty"`
@@ -1412,16 +1416,19 @@ type CacheMetrics struct {
 	OccupancyPercent          float32 `json:"OccupancyPercent,omitempty"`
 }
 
+// CacheMetricsTotal redfish structure
 type CacheMetricsTotal struct {
 	CurrentPeriod CurrentPeriod `json:"CurrentPeriod,omitempty"`
 	LifeTime      LifeTime      `json:"LifeTime,omitempty"`
 }
 
+// CurrentPeriod redfish structure
 type CurrentPeriod struct {
 	CorrectableECCErrorCount   int `json:"CorrectableECCErrorCount,omitempty"`
 	UncorrectableECCErrorCount int `json:"UncorrectableECCErrorCount,omitempty"`
 }
 
+// LifeTime redfish structure
 type LifeTime struct {
 	CorrectableECCErrorCount   int `json:"CorrectableECCErrorCount,omitempty"`
 	UncorrectableECCErrorCount int `json:"UncorrectableECCErrorCount,omitempty"`

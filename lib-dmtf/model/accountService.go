@@ -33,13 +33,13 @@ type CertificateMappingAttribute string
 // AccountProviderType - The type of external account provider to which this service connects
 type AccountProviderType string
 
-// Mode
+// Mode -
 type Mode string
 
 // PrivilegeType - The set of restricted Redfish privileges
 type PrivilegeType string
 
-// PasswordExchangeProtocols- Indicates the allowed TACACS+ password exchange protocols.
+// PasswordExchangeProtocols - Indicates the allowed TACACS+ password exchange protocols.
 type PasswordExchangeProtocols string
 
 const (
@@ -141,19 +141,19 @@ const (
 	//AccountProviderTypeRedfishService - An external Redfish service.
 	AccountProviderTypeRedfishService AccountProviderType = "RedfishService"
 
-	//AccountProviderTypeActiveDirectoryService- An external Active Directory service
+	//AccountProviderTypeActiveDirectoryService - An external Active Directory service
 	AccountProviderTypeActiveDirectoryService AccountProviderType = "ActiveDirectoryService"
 
 	//AccountProviderTypeLDAPService -A generic external LDAP service
 	AccountProviderTypeLDAPService AccountProviderType = "LDAPService"
 
-	//AccountProviderTypeOEM-An OEM-specific external authentication or directory service
+	//AccountProviderTypeOEM - An OEM-specific external authentication or directory service
 	AccountProviderTypeOEM AccountProviderType = "OEM"
 
-	//AccountProviderTypeTACACSplus- "An external TACACS+ service
+	//AccountProviderTypeTACACSplus - "An external TACACS+ service
 	AccountProviderTypeTACACSplus AccountProviderType = "TACACSplus"
 
-	//AccountProviderTypeOAuth2-An external OAuth 2.0 service
+	//AccountProviderTypeOAuth2 -An external OAuth 2.0 service
 	AccountProviderTypeOAuth2 AccountProviderType = "OAuth2"
 
 	//ModeDiscovery - OAuth 2.0 service information for token validation is downloaded by the service
@@ -436,7 +436,7 @@ type TargetPrivilegeMap struct {
 	Targets      []string     `json:"Targets,omitempty"`
 }
 
-// OperationPrivilege redfish structure
+// OperationMap redfish structure
 type OperationMap struct {
 	DELETE OperationPrivilege `json:"DELETE,omitempty"`
 	GET    OperationPrivilege `json:"GET,omitempty"`
